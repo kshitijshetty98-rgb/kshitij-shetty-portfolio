@@ -44,6 +44,16 @@
     animation:fadeInImage 3.6s ease-out forwards;
   }
 
+  .hero-mobile{ display:none; }
+
+  @media (max-width:768px){
+    .hero-desktop{ display:none; }
+    .hero-mobile{
+      display:block;
+      object-position:center 18%; /* keep faces/paper-cutouts in frame on tall phone screens */
+    }
+  }
+
   .welcome-fade{
     position:absolute;
     left:0; right:0; bottom:0;
@@ -259,7 +269,8 @@
 
   <section class="welcome" id="welcome">
     <div class="welcome-frame">
-      <img src="images/hero-welcome.webp" alt="Kshitij Shetty working with a community school on a participatory design project">
+      <img class="hero-desktop" src="images/hero-welcome.webp" alt="Kshitij Shetty working with a community school on a participatory design project">
+      <img class="hero-mobile" src="images/hero-mobile.jpg" alt="Kshitij Shetty working with a community school on a participatory design project">
       <div class="welcome-fade"></div>
       <div class="welcome-text">
         <div class="text-block">
