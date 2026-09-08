@@ -177,8 +177,8 @@
     }
     .timeline-sticky::-webkit-scrollbar{ display:none; }
     .timeline-track{
-      height:70vh;
-      height:70dvh;
+      /* image aspect ratio ~2.4725:1 -> height set so the viewport shows ~40% of its width at start */
+      height:calc(100vw / 0.989);
     }
     .timeline-track img{
       scroll-snap-align:start;
@@ -240,16 +240,17 @@
     .index-section{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
-      grid-auto-rows:1fr;
+      grid-auto-rows:100vh;
+      grid-auto-rows:100dvh;
       height:auto;
       gap:8px;
       padding:8px;
     }
     .index-col{
-      min-height:300px;
+      min-height:0;
     }
     .index-col img{
-      object-position:bottom center; /* keep the baked-in title/description visible on short tiles */
+      object-position:bottom left; /* keep the baked-in title/description (left-aligned text) fully visible */
     }
   }
 </style>
