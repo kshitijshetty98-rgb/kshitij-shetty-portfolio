@@ -240,17 +240,17 @@
     .index-section{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
-      grid-auto-rows:100vh;
-      grid-auto-rows:100dvh;
+      grid-auto-rows:auto;
       height:auto;
       gap:8px;
       padding:8px;
     }
     .index-col{
+      aspect-ratio:706 / 2850; /* same proportions as the source index artwork - no cropping needed */
       min-height:0;
     }
     .index-col img{
-      object-position:bottom left; /* keep the baked-in title/description (left-aligned text) fully visible */
+      object-position:top center;
     }
   }
 </style>
