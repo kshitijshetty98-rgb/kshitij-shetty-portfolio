@@ -169,7 +169,7 @@
 
   /* ---------- MOBILE: swap scroll-jacked pan for a native swipeable strip ---------- */
   @media (max-width:768px){
-    .section-spacer{ height:8vh; }
+    .section-spacer{ height:2vh; }
 
     .timeline-section{
       height:auto;
@@ -187,8 +187,8 @@
     }
     .timeline-sticky::-webkit-scrollbar{ display:none; }
     .timeline-track{
-      /* image aspect ratio ~2.4725:1 -> height set so the viewport shows ~40% of its width at start */
-      height:calc(100vw / 0.989);
+      /* image aspect ratio ~2.4725:1 -> height set so the viewport shows ~20% of its width at start (2x scale / 100% larger than before) */
+      height:calc(100vw / 0.4945);
     }
     .timeline-track img{
       scroll-snap-align:start;
