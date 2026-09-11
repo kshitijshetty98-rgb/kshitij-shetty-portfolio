@@ -284,7 +284,7 @@
     font-size:clamp(.85rem, 1.3vw, 1.1rem);
     letter-spacing:.02em;
     color:var(--text);
-    margin-bottom:32px;
+    margin-bottom:16px;
   }
   .contact-eyebrow .bar{
     width:1px;
@@ -311,12 +311,6 @@
   }
   .contact-email:hover{
     border-color:var(--text);
-  }
-  .contact-note{
-    margin-top:28px;
-    font-size:clamp(.9rem, 1.2vw, 1.05rem);
-    color:var(--text);
-    opacity:.65;
   }
 </style>
 </head>
@@ -360,7 +354,6 @@
         <span>Get in Touch</span>
       </div>
       <a class="contact-email" href="mailto:kshitijshetty98@gmail.com">kshitijshetty98@gmail.com</a>
-      <p class="contact-note">For commissions, collaborations, and everything in between.</p>
     </div>
   </section>
 
@@ -369,7 +362,8 @@
     {
       key:'thesis', base:'images/idx-thesis-base.jpg', hover:'images/idx-thesis.jpg',
       title:'Thesis',
-      desc:'Final thesis was a detail study of religion and its structures. Understanding and an attempt to create a space with a joint true meaning.'
+      desc:'Final thesis was a detail study of religion and its structures. Understanding and an attempt to create a space with a joint true meaning.',
+      link:'thesis.html'
     },
     {
       key:'commercial', base:'images/idx-commercial-base.jpg', hover:'images/idx-commercial.jpg',
@@ -407,6 +401,7 @@
       '<img class="idx-hover" src="' + cat.hover + '" alt="">' +
       '<span class="sr-only">' + cat.title + ' — ' + cat.desc + '</span>';
     col.addEventListener('click', () => {
+      if(cat.link){ window.location.href = cat.link; return; }
       const wasActive = col.classList.contains('is-active');
       document.querySelectorAll('.index-col.is-active').forEach(el => el.classList.remove('is-active'));
       if(!wasActive) col.classList.add('is-active');
