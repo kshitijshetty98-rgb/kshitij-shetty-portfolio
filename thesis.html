@@ -51,15 +51,55 @@
     height:100%;
     object-fit:contain;
   }
+
+  .thesis-board{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .thesis-board img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
 </style>
 </head>
 <body>
 
   <a class="back-link" href="index.html">← Back</a>
 
-  <section class="thesis-hero">
+  <section class="thesis-hero" id="thesisHero">
     <img src="images/thesis-hero.jpg" alt="Strength in Secularity — Interpretation Centre for Religion, undergraduate thesis by Kshitij Shetty">
   </section>
+
+  <section class="thesis-board">
+    <img src="images/thesis-1.jpg" alt="Thesis research board 1 — sacral architecture, ideology and symbolism">
+  </section>
+  <section class="thesis-board">
+    <img src="images/thesis-2.jpg" alt="Thesis research board 2 — site analysis and landscape plan">
+  </section>
+  <section class="thesis-board">
+    <img src="images/thesis-3.jpg" alt="Thesis research board 3 — main structure floor plans and renders">
+  </section>
+  <section class="thesis-board">
+    <img src="images/thesis-4.jpg" alt="Thesis research board 4 — design concepts, brutalism and exposed concrete">
+  </section>
+
+<script>
+  const thesisHero = document.getElementById('thesisHero');
+  function onScroll(){
+    const vh = window.innerHeight;
+    const progress = Math.max(0, Math.min(1, window.scrollY / vh));
+    thesisHero.style.opacity = String(1 - progress);
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+</script>
 
 </body>
 </html>
