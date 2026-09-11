@@ -232,9 +232,11 @@
   .index-col.is-active .idx-hover{
     opacity:1;
   }
-  .index-col:active .idx-hover{
-    opacity:.85;
-    transition:opacity .1s ease;
+  @media (hover:hover) and (pointer:fine){
+    .index-col:active .idx-hover{
+      opacity:.85;
+      transition:opacity .1s ease;
+    }
   }
   .sr-only{
     position:absolute;
