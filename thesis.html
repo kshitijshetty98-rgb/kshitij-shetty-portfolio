@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thesis — Ar. Kshitij Shetty</title>
+<title>Corked Up & Thesis — Ar. Kshitij Shetty</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -95,6 +95,48 @@
 
   <a class="back-link" href="index.html">← Back</a>
 
+  <section class="thesis-hero" id="corkedHero" style="background:#b48c62;">
+    <img src="images/corked-hero.jpg" alt="Corked Up — Upcycling Cork Waste into Complex Geometric Panels">
+    <div class="thesis-hero-fade"></div>
+  </section>
+
+  <section class="thesis-board">
+    <img src="images/corked-1.jpg" alt="Corked Up page 1 — project overview, team and material system">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-2.jpg" alt="Corked Up page 2">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-3.jpg" alt="Corked Up page 3">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-4.jpg" alt="Corked Up page 4">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-5.jpg" alt="Corked Up page 5">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-6.jpg" alt="Corked Up page 6">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-7.jpg" alt="Corked Up page 7">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-8.jpg" alt="Corked Up page 8">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-9.jpg" alt="Corked Up page 9">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-10.jpg" alt="Corked Up page 10">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-11.jpg" alt="Corked Up page 11">
+  </section>
+  <section class="thesis-board">
+    <img src="images/corked-12.jpg" alt="Corked Up page 12">
+  </section>
+
   <section class="thesis-hero" id="thesisHero">
     <img src="images/thesis-hero.jpg" alt="Strength in Secularity — Interpretation Centre for Religion, undergraduate thesis by Kshitij Shetty">
     <div class="thesis-hero-fade"></div>
@@ -114,14 +156,19 @@
   </section>
 
 <script>
-  const thesisHero = document.getElementById('thesisHero');
-  function onScroll(){
-    const vh = window.innerHeight;
-    const progress = Math.max(0, Math.min(1, window.scrollY / vh));
-    thesisHero.style.opacity = String(1 - progress);
+  function setupHeroFade(heroEl){
+    if(!heroEl) return;
+    function onScroll(){
+      const vh = window.innerHeight;
+      const start = heroEl.offsetTop;
+      const progress = Math.max(0, Math.min(1, (window.scrollY - start) / vh));
+      heroEl.style.opacity = String(1 - progress);
+    }
+    window.addEventListener('scroll', onScroll, { passive:true });
+    onScroll();
   }
-  window.addEventListener('scroll', onScroll, { passive:true });
-  onScroll();
+  setupHeroFade(document.getElementById('corkedHero'));
+  setupHeroFade(document.getElementById('thesisHero'));
 </script>
 
 </body>
