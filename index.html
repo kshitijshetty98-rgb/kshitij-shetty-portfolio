@@ -187,7 +187,7 @@
     }
     .timeline-sticky::-webkit-scrollbar{ display:none; }
     .timeline-track{
-      /* image aspect ratio ~2.4725:1 -> height set so the viewport shows ~20% of its width at start (2x scale / 100% larger than before) */
+      /* 200% scale = 2x original size -> 20% of width visible at start */
       height:calc(100vw / 0.4945);
     }
     .timeline-track img{
@@ -263,6 +263,61 @@
       object-position:top center;
     }
   }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:var(--bg);
+    padding:10vh 6vw;
+  }
+  .contact-inner{ max-width:900px; }
+  .contact-eyebrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    font-size:clamp(.85rem, 1.3vw, 1.1rem);
+    letter-spacing:.02em;
+    color:var(--text);
+    margin-bottom:32px;
+  }
+  .contact-eyebrow .bar{
+    width:1px;
+    height:1.2em;
+    background:var(--text);
+    opacity:.5;
+  }
+  .contact-email{
+    display:inline-block;
+    font-family:'Playfair Display', serif;
+    font-weight:600;
+    font-size:clamp(1.8rem, 5vw, 3.6rem);
+    color:var(--text);
+    text-decoration:none;
+    border-bottom:2px solid transparent;
+    transition:border-color .3s ease;
+  }
+
+  @media (max-width:640px){
+    .contact-email{
+      font-size:clamp(1.3rem, 6.8vw, 2rem);
+      white-space:nowrap;
+    }
+  }
+  .contact-email:hover{
+    border-color:var(--text);
+  }
+  .contact-note{
+    margin-top:28px;
+    font-size:clamp(.9rem, 1.2vw, 1.05rem);
+    color:var(--text);
+    opacity:.65;
+  }
 </style>
 </head>
 <body>
@@ -297,6 +352,17 @@
   </section>
 
   <section class="index-section" id="indexSection"></section>
+
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-eyebrow">
+        <div class="bar"></div>
+        <span>Get in Touch</span>
+      </div>
+      <a class="contact-email" href="mailto:kshitijshetty98@gmail.com">kshitijshetty98@gmail.com</a>
+      <p class="contact-note">For commissions, collaborations, and everything in between.</p>
+    </div>
+  </section>
 
 <script>
   const indexCategories = [
