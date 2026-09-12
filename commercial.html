@@ -60,6 +60,30 @@
     pointer-events:none;
   }
 
+  #commercialHero{ background:#faa945; }
+  /* on viewports wider (relative to height) than the artwork's own ratio, object-fit:contain
+     letterboxes left/right instead of top/bottom — keep that margin clean white, not orange */
+  @media (min-aspect-ratio: 1723/1000){
+    #commercialHero{ background:#ffffff; }
+  }
+
+  .hero-title{
+    position:absolute;
+    top:56px;
+    left:40px;
+    z-index:2;
+    margin:0;
+    font-family:'Playfair Display', serif;
+    font-weight:500;
+    font-size:clamp(1.6rem, 3.2vw, 2.6rem);
+    letter-spacing:.04em;
+    color:#fff;
+    text-shadow:0 2px 20px rgba(0,0,0,.2);
+  }
+  @media (max-width:768px){
+    .hero-title{ top:88px; left:24px; font-size:1.5rem; }
+  }
+
   .thesis-board{
     position:relative;
     width:100vw;
@@ -95,8 +119,9 @@
 
   <a class="back-link" href="index.html">← Back</a>
 
-  <section class="thesis-hero" id="commercialHero" style="background:#faa945;">
+  <section class="thesis-hero" id="commercialHero">
     <img src="images/commercial-hero.jpg" alt="Commercial — architecture portfolio">
+    <h1 class="hero-title">Commercial</h1>
     <div class="thesis-hero-fade"></div>
   </section>
 
