@@ -282,6 +282,7 @@
 
   /* ---------- CONTACT ---------- */
   .contact{
+    position:relative;
     min-height:100vh;
     min-height:100dvh;
     display:flex;
@@ -290,8 +291,23 @@
     text-align:center;
     background:var(--bg);
     padding:10vh 6vw;
+    overflow:hidden;
   }
-  .contact-inner{ max-width:900px; }
+  .contact-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:0;
+  }
+  .contact-scrim{
+    position:absolute;
+    inset:0;
+    background:rgba(255,255,255,.55);
+    z-index:0;
+  }
+  .contact-inner{ position:relative; z-index:1; max-width:900px; }
   .contact-eyebrow{
     display:flex;
     align-items:center;
@@ -364,6 +380,8 @@
   <section class="index-section" id="indexSection"></section>
 
   <section class="contact" id="contact">
+    <img class="contact-bg" src="images/contact-bg.jpg" alt="" loading="lazy">
+    <div class="contact-scrim"></div>
     <div class="contact-inner">
       <div class="contact-eyebrow">
         <div class="bar"></div>
