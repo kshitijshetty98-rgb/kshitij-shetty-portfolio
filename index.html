@@ -291,6 +291,7 @@
     text-align:center;
     background:var(--bg);
     padding:10vh 6vw;
+    margin-top:clamp(40px, 7vh, 110px);
     overflow:hidden;
   }
   .contact-bg{
@@ -306,6 +307,14 @@
     inset:0;
     background:rgba(255,255,255,.55);
     z-index:0;
+  }
+  .contact-fade-top{
+    position:absolute;
+    top:0; left:0; right:0;
+    height:16%;
+    background:linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0) 100%);
+    z-index:0;
+    pointer-events:none;
   }
   .contact-inner{ position:relative; z-index:1; max-width:900px; }
   .contact-eyebrow{
@@ -382,6 +391,7 @@
   <section class="contact" id="contact">
     <img class="contact-bg" src="images/contact-bg.jpg" alt="" loading="lazy">
     <div class="contact-scrim"></div>
+    <div class="contact-fade-top"></div>
     <div class="contact-inner">
       <div class="contact-eyebrow">
         <div class="bar"></div>
