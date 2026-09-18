@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#141414">
+<title>Group Projects — Ar. Kshitij Shetty</title>
+<meta name="description" content="Group and collaborative architecture projects by Ar. Kshitij Shetty.">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Group Projects — Ar. Kshitij Shetty">
+<meta property="og:description" content="Group and collaborative architecture projects by Ar. Kshitij Shetty.">
+<meta property="og:image" content="https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/images/group-hero.jpg">
+<meta property="og:url" content="https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/group.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Group Projects — Ar. Kshitij Shetty">
+<meta name="twitter:description" content="Group and collaborative architecture projects by Ar. Kshitij Shetty.">
+<meta name="twitter:image" content="https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/images/group-hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --text:#141414;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html, body{ background:var(--bg); }
+  body{
+    color:var(--text);
+    font-family:'Playfair Display', serif;
+    overflow-x:hidden;
+  }
+
+  .back-link{
+    position:fixed;
+    top:24px;
+    left:24px;
+    z-index:10;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:.85rem;
+    letter-spacing:.04em;
+    color:#f4f3ef;
+    text-decoration:none;
+    mix-blend-mode:difference;
+  }
+  .back-link:hover{ opacity:.75; }
+
+  .thesis-hero{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    background:#000;
+    overflow:hidden;
+  }
+  .thesis-hero img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    transform:scale(1.004); /* closes a subpixel rounding seam that can show at the contain-fit edge */
+  }
+  .thesis-hero-fade{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:38%;
+    background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.9) 78%, #fff 100%);
+    pointer-events:none;
+  }
+
+  #groupHero{ background:#874b4b; }
+  /* on viewports wider (relative to height) than the artwork's own ratio, object-fit:contain
+     letterboxes left/right instead of top/bottom — keep that margin clean white, not terracotta */
+  @media (min-aspect-ratio: 1624/1000){
+    #groupHero{ background:#ffffff; }
+  }
+
+  .hero-title{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    z-index:2;
+    margin:0;
+    width:92%;
+    text-align:center;
+    line-height:1;
+    font-family:'Playfair Display', serif;
+    font-weight:500;
+    font-size:clamp(2.6rem, 11vw, 9rem);
+    letter-spacing:.03em;
+    color:#fff;
+    text-shadow:0 4px 34px rgba(0,0,0,.3);
+  }
+
+  .thesis-board{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .thesis-board img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+
+  @media (max-width:768px){
+    .thesis-board{
+      height:auto;
+      padding:0;
+    }
+    .thesis-board img{
+      height:auto;
+      display:block;
+    }
+  }
+
+  /* ---------- portrait boards, shown as side-by-side spreads to match the
+     landscape-board density used elsewhere on this page ---------- */
+  .residential-spread{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:2%;
+  }
+  .residential-spread img{
+    height:100%;
+    width:auto;
+    max-width:48%;
+    object-fit:contain;
+    display:block;
+    flex:none;
+  }
+
+  @media (max-width:768px){
+    .residential-spread{
+      height:auto;
+      display:block;
+      gap:0;
+    }
+    .residential-spread img{
+      width:100%;
+      max-width:100%;
+      height:auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <a class="back-link" href="index.html">← Back</a>
+
+  <section class="thesis-hero" id="groupHero">
+    <img src="images/group-hero.jpg" alt="Group Projects — architecture portfolio">
+    <h1 class="hero-title">Group Projects</h1>
+    <div class="thesis-hero-fade"></div>
+  </section>
+
+  <section class="residential-spread">
+    <img src="images/group-1.jpg" loading="lazy" alt="The L.O.O.P. — group project title page and team credits">
+  </section>
+
+  <section class="thesis-board">
+    <img src="images/group-2.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, species and site relationship board">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-3.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 5">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-4.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 6">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-5.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 7">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-6.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 9">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-7.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 10">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-8.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 12">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-9.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 13">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-10.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 14">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-11.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 15">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-12.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 16">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-13.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 23">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-14.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 25">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-15.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 27">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-16.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 28">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-17.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 29">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-18.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 33">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-19.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 34">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-20.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 38">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-21.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 39">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-22.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 40">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-23.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 41">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-24.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 42">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-25.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, board 43">
+  </section>
+  <section class="thesis-board">
+    <img src="images/group-26.jpg" loading="lazy" alt="The L.O.O.P. — Barcelona ecological tower project, final rendered view">
+  </section>
+
+  <section class="residential-spread">
+    <img src="images/group-27.jpg" loading="lazy" alt="Archaeoastronomy interpretation center — concept and site analysis board 1">
+    <img src="images/group-28.jpg" loading="lazy" alt="Archaeoastronomy interpretation center — concept and site analysis board 2">
+  </section>
+  <section class="residential-spread">
+    <img src="images/group-29.jpg" loading="lazy" alt="Indo-French workshop — Varanasi ghats documentation board 1">
+    <img src="images/group-30.jpg" loading="lazy" alt="Indo-French workshop — Varanasi ghats documentation board 2">
+  </section>
+  <section class="residential-spread">
+    <img src="images/group-31.jpg" loading="lazy" alt="Nari Gandhi citation-winning project — plans and sections board 1">
+    <img src="images/group-32.jpg" loading="lazy" alt="Nari Gandhi citation-winning project — plans and sections board 2">
+  </section>
+
+<script>
+  function setupHeroFade(heroEl){
+    if(!heroEl) return;
+    function onScroll(){
+      const vh = window.innerHeight;
+      const start = heroEl.offsetTop;
+      const progress = Math.max(0, Math.min(1, (window.scrollY - start) / vh));
+      heroEl.style.opacity = String(1 - progress);
+    }
+    window.addEventListener('scroll', onScroll, { passive:true });
+    onScroll();
+  }
+  setupHeroFade(document.getElementById('groupHero'));
+</script>
+
+</body>
+</html>
