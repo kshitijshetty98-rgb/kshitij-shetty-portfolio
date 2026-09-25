@@ -175,13 +175,14 @@
     width:max-content;
     will-change:transform;
   }
-  .timeline-track img{
+  .timeline-track video{
     height:100%;
     width:auto;
     display:block;
   }
 
-  /* ---------- MOBILE: swap scroll-jacked pan for a native swipeable strip ---------- */
+  /* ---------- MOBILE: swap scroll-jacked pan for a native swipeable strip;
+     the strip's own scrollLeft scrubs the video instead of window scrollY ---------- */
   @media (max-width:768px){
     .section-spacer{ height:2vh; }
 
@@ -196,16 +197,12 @@
       overflow-x:auto;
       overflow-y:hidden;
       -webkit-overflow-scrolling:touch;
-      scroll-snap-type:x proximity;
       scrollbar-width:none;
     }
     .timeline-sticky::-webkit-scrollbar{ display:none; }
     .timeline-track{
-      /* 200% scale = 2x original size -> 20% of width visible at start */
+      /* 200% scale = 2x original size -> ~20% of width visible at start */
       height:calc(100vw / 0.4945);
-    }
-    .timeline-track img{
-      scroll-snap-align:start;
     }
   }
 
@@ -381,7 +378,7 @@
   <section class="timeline-section" id="timelineSection">
     <div class="timeline-sticky">
       <div class="timeline-track" id="timelineTrack">
-        <img src="images/timeline.webp" alt="Career timeline — Ar. Kshitij Shetty, 2016 to 2026" id="timelineImg" loading="lazy">
+        <video src="images/timeline.mp4" id="timelineVideo" width="2560" height="1010" muted playsinline preload="auto" aria-label="Career timeline — Ar. Kshitij Shetty, 2016 to 2026"></video>
       </div>
     </div>
   </section>
@@ -474,9 +471,9 @@
     const heroProgress = clamp(window.scrollY / vh, 0, 1);
     welcome.style.opacity = String(1 - heroProgress);
 
-    // desktop/tablet only: pin the section and pan the track based on scroll position.
-    // on mobile the CSS switches this to a native horizontally-swipeable strip instead,
-    // so the scroll-jacking transform below is skipped entirely.
+    // desktop/tablet only: pin the section, then pan the track and scrub the video
+    // together from vertical scroll. on mobile the strip scrolls natively and
+    // onTimelineScroll scrubs from its scrollLeft instead.
     if(isMobileLayout()){
       timelineTrack.style.transform = '';
       return;
@@ -484,24 +481,54 @@
 
     const rect = timelineSection.getBoundingClientRect();
     const scrollable = timelineSection.offsetHeight - vh;
-    const raw = -rect.top;
-    const progress = clamp(raw / scrollable, 0, 1);
+    // pan only while pinned, but start the video as soon as the section enters the
+    // viewport so it isn't sitting on the blank first frame when it arrives
+    const panProgress = clamp(-rect.top / scrollable, 0, 1);
+    const playProgress = clamp((vh - rect.top) / (scrollable + vh), 0, 1);
 
-    const vw = window.innerWidth;
-    const maxTranslate = Math.max(0, timelineImgWidth - vw);
-    timelineTrack.style.transform = 'translateX(' + (-progress * maxTranslate) + 'px)';
+    const maxTranslate = Math.max(0, timelineTrack.offsetWidth - window.innerWidth);
+    timelineTrack.style.transform = 'translateX(' + (-panProgress * maxTranslate) + 'px)';
+    seekVideo(playProgress);
   }
 
-  const timelineImg = document.getElementById('timelineImg');
-  let timelineImgWidth = 0;
-  function measureImg(){
-    timelineImgWidth = timelineImg.getBoundingClientRect().width;
+  // ---------- timeline video scrubbing ----------
+  const timelineVideo = document.getElementById('timelineVideo');
+  const timelineSticky = document.querySelector('.timeline-sticky');
+  let videoDuration = 0;
+  let videoReady = false;
+
+  function seekVideo(progress){
+    if(!videoReady) return;
+    const t = progress * videoDuration;
+    if(Math.abs(timelineVideo.currentTime - t) > 0.01){
+      timelineVideo.currentTime = t;
+    }
+  }
+
+  function onTimelineScroll(){
+    if(!isMobileLayout()) return;
+    // keep the drawing edge ~80% across the visible strip, so it never shows blank
+    const edge = timelineSticky.scrollLeft + timelineSticky.clientWidth * 0.8;
+    seekVideo(clamp(edge / timelineSticky.scrollWidth, 0, 1));
+  }
+
+  function onVideoMetadata(){
+    videoDuration = timelineVideo.duration;
+    videoReady = true;
+    // iOS won't paint seeked frames for a video that has never played, so prime it once
+    const priming = timelineVideo.play();
+    if(priming){
+      priming.then(() => { timelineVideo.pause(); onScroll(); onTimelineScroll(); }).catch(() => {});
+    }
     onScroll();
+    onTimelineScroll();
   }
-  if(timelineImg.complete){ measureImg(); } else { timelineImg.addEventListener('load', measureImg); }
+  if(timelineVideo.readyState >= 1){ onVideoMetadata(); }
+  else { timelineVideo.addEventListener('loadedmetadata', onVideoMetadata); }
 
   window.addEventListener('scroll', onScroll, { passive:true });
-  window.addEventListener('resize', measureImg);
+  timelineSticky.addEventListener('scroll', onTimelineScroll, { passive:true });
+  window.addEventListener('resize', () => { onScroll(); onTimelineScroll(); });
   onScroll();
 </script>
 
