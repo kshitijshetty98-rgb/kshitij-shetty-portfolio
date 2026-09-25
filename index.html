@@ -223,7 +223,8 @@
     overflow:hidden;
     cursor:pointer;
   }
-  .index-col img{
+  .index-col img,
+  .index-col video{
     position:absolute;
     inset:0;
     width:100%;
@@ -272,7 +273,8 @@
       aspect-ratio:706 / 2850; /* same proportions as the source index artwork - no cropping needed */
       min-height:0;
     }
-    .index-col img{
+    .index-col img,
+    .index-col video{
       object-position:top center;
     }
   }
@@ -401,7 +403,7 @@
 <script>
   const indexCategories = [
     {
-      key:'thesis', base:'images/idx-thesis-base.jpg', hover:'images/idx-thesis.jpg',
+      key:'thesis', base:'images/idx-thesis-base.jpg', video:'images/idx-thesis.mp4',
       title:'Thesis',
       desc:'Final thesis was a detail study of religion and its structures. Understanding and an attempt to create a space with a joint true meaning.',
       link:'thesis.html'
@@ -439,21 +441,52 @@
   ];
 
   const indexSection = document.getElementById('indexSection');
+  const canHover = window.matchMedia('(hover: hover)').matches;
+
+  function resetActiveTiles(){
+    document.querySelectorAll('.index-col.is-active').forEach(el => {
+      el.classList.remove('is-active');
+      const v = el.querySelector('.idx-video');
+      if(v){ v.pause(); v.currentTime = 0; }
+    });
+  }
+
   indexCategories.forEach(cat => {
     const col = document.createElement('div');
     col.className = 'index-col';
+    // a tile's video replaces its hover image; the video's first frame matches the base image
+    const reveal = cat.video
+      ? '<video class="idx-video" src="' + cat.video + '" poster="' + cat.base + '" muted playsinline preload="auto" aria-hidden="true"></video>'
+      : '<img class="idx-hover" src="' + cat.hover + '" alt="" loading="lazy">';
     col.innerHTML =
       '<img class="idx-base" src="' + cat.base + '" alt="" loading="lazy">' +
-      '<img class="idx-hover" src="' + cat.hover + '" alt="" loading="lazy">' +
+      reveal +
       '<span class="sr-only">' + cat.title + ' — ' + cat.desc + '</span>';
+
+    const video = col.querySelector('.idx-video');
+    if(video && canHover){
+      col.addEventListener('mouseenter', () => { video.currentTime = 0; video.play().catch(() => {}); });
+      col.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+    }
+
     col.addEventListener('click', () => {
+      // touch screens can't hover: a video tile previews on the first tap and opens on the second
+      if(video && !canHover && !col.classList.contains('is-active')){
+        resetActiveTiles();
+        col.classList.add('is-active');
+        video.play().catch(() => {});
+        return;
+      }
       if(cat.link){ window.location.href = cat.link; return; }
       const wasActive = col.classList.contains('is-active');
-      document.querySelectorAll('.index-col.is-active').forEach(el => el.classList.remove('is-active'));
+      resetActiveTiles();
       if(!wasActive) col.classList.add('is-active');
     });
     indexSection.appendChild(col);
   });
+
+  // coming back via Back restores the page as it was left; reset so the next tap previews again
+  window.addEventListener('pageshow', (e) => { if(e.persisted) resetActiveTiles(); });
 </script>
 
 <script>
