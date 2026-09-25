@@ -164,7 +164,7 @@
 </head>
 <body>
 
-  <a class="back-link" href="index.html">← Back</a>
+  <a class="back-link" href="index.html#indexSection">← Back</a>
 
   <section class="thesis-hero" id="groupHero">
     <img src="images/group-hero.jpg" alt="Group Projects — architecture portfolio">
@@ -244,6 +244,19 @@
     onScroll();
   }
   setupHeroFade(document.getElementById('groupHero'));
+
+  // came from the homepage: step back in history so the browser restores the exact
+  // scroll position; otherwise the link's href lands on the project grid
+  document.querySelector('.back-link').addEventListener('click', (e) => {
+    const home = new URL('./', location.href).pathname;
+    const from = document.referrer ? new URL(document.referrer) : null;
+    const cameFromHome = from && from.origin === location.origin &&
+      (from.pathname === home || from.pathname === home + 'index.html');
+    if(cameFromHome && history.length > 1){
+      e.preventDefault();
+      history.back();
+    }
+  });
 </script>
 
 </body>

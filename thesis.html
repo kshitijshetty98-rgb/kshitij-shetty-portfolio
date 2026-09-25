@@ -107,7 +107,7 @@
 </head>
 <body>
 
-  <a class="back-link" href="index.html">← Back</a>
+  <a class="back-link" href="index.html#indexSection">← Back</a>
 
   <section class="thesis-hero" id="corkedHero" style="background:#cca98b;">
     <img src="images/corked-hero.jpg" alt="Corked Up — Upcycling Cork Waste into Complex Geometric Panels">
@@ -183,6 +183,19 @@
   }
   setupHeroFade(document.getElementById('corkedHero'));
   setupHeroFade(document.getElementById('thesisHero'));
+
+  // came from the homepage: step back in history so the browser restores the exact
+  // scroll position; otherwise the link's href lands on the project grid
+  document.querySelector('.back-link').addEventListener('click', (e) => {
+    const home = new URL('./', location.href).pathname;
+    const from = document.referrer ? new URL(document.referrer) : null;
+    const cameFromHome = from && from.origin === location.origin &&
+      (from.pathname === home || from.pathname === home + 'index.html');
+    if(cameFromHome && history.length > 1){
+      e.preventDefault();
+      history.back();
+    }
+  });
 </script>
 
 </body>
