@@ -207,14 +207,17 @@
   }
 
   /* ---------- MAIN INDEX ---------- */
+  /* gaps/side padding are sized to (just over) a tile video's white left margin
+     (86/704 of the tile width), so a video's margin fills its own gap without
+     painting over the neighbouring tile */
   .index-section{
     display:flex;
     width:100%;
     height:100vh;
     height:100dvh;
-    gap:clamp(10px, 1.6vw, 26px);
+    gap:1.875%;
     background:#fff;
-    padding:0 clamp(10px, 1.6vw, 26px);
+    padding:0 1.81%;
   }
   .index-col{
     flex:1;
@@ -279,13 +282,16 @@
   }
 
   @media (max-width:900px){
+    /* column gaps fit a video's left margin; row gap and top padding fit its top
+       margin (153/704 of the tile width), so row 2's upward spill clears row 1 */
     .index-section{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
       grid-auto-rows:auto;
       height:auto;
-      gap:8px;
-      padding:8px;
+      column-gap:3.82%;
+      row-gap:6.3vw;
+      padding:6.3vw 3.65% 3.65%;
     }
     .index-col{
       aspect-ratio:706 / 2850; /* same proportions as the source index artwork - no cropping needed */
@@ -426,13 +432,13 @@
       link:'thesis.html'
     },
     {
-      key:'commercial', base:'images/idx-commercial-base.jpg', hover:'images/idx-commercial.jpg',
+      key:'commercial', base:'images/idx-commercial-base.jpg', video:'images/idx-commercial.mp4', poster:'images/idx-commercial-poster.jpg',
       title:'Commercial',
       desc:'Projects include an I.T park with an expansive podium landscape and also project with small pockets of green spaces created in space constraints.',
       link:'commercial.html'
     },
     {
-      key:'residential', base:'images/idx-residential-base.jpg', hover:'images/idx-residential.jpg',
+      key:'residential', base:'images/idx-residential-base.jpg', video:'images/idx-residential.mp4', poster:'images/idx-residential-poster.jpg',
       title:'Residential',
       desc:'Projects include 2 highrise residential projects. One of which is a mixed used stucture.',
       link:'residential.html'
