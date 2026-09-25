@@ -223,8 +223,7 @@
     overflow:hidden;
     cursor:pointer;
   }
-  .index-col img,
-  .index-col video{
+  .index-col img{
     position:absolute;
     inset:0;
     width:100%;
@@ -232,6 +231,25 @@
     object-fit:cover;
     object-position:top center;
     display:block;
+  }
+  /* video tiles: the video canvas (790x3004) has a white margin left and above the
+     tile panel (panel at x=86, y=153, 704 wide). Size/offset it so the panel lands
+     exactly on the tile and the margin hangs outside, letting the pop-up art spill
+     past the tile's left/top edges; the right/bottom edges still clip. */
+  .index-col.has-video{
+    overflow:visible;
+    clip-path:inset(-100vh 0 0 -100vw);
+  }
+  .index-col .idx-video{
+    position:absolute;
+    top:0;
+    left:calc(-86 / 704 * 100%);
+    width:calc(790 / 704 * 100%);
+    height:auto;
+    aspect-ratio:790 / 3004;
+    margin-top:calc(-153 / 704 * 100%); /* % margins resolve against width, like left */
+    display:block;
+    pointer-events:none;
   }
   .index-col .idx-base{
     opacity:1;
@@ -273,8 +291,7 @@
       aspect-ratio:706 / 2850; /* same proportions as the source index artwork - no cropping needed */
       min-height:0;
     }
-    .index-col img,
-    .index-col video{
+    .index-col img{
       object-position:top center;
     }
   }
@@ -403,7 +420,7 @@
 <script>
   const indexCategories = [
     {
-      key:'thesis', base:'images/idx-thesis-base.jpg', video:'images/idx-thesis.mp4',
+      key:'thesis', base:'images/idx-thesis-base.jpg', video:'images/idx-thesis.mp4', poster:'images/idx-thesis-poster.jpg',
       title:'Thesis',
       desc:'Final thesis was a detail study of religion and its structures. Understanding and an attempt to create a space with a joint true meaning.',
       link:'thesis.html'
@@ -453,10 +470,10 @@
 
   indexCategories.forEach(cat => {
     const col = document.createElement('div');
-    col.className = 'index-col';
-    // a tile's video replaces its hover image; the video's first frame matches the base image
+    col.className = cat.video ? 'index-col has-video' : 'index-col';
+    // a tile's video replaces its hover image; its poster is the video's own first frame
     const reveal = cat.video
-      ? '<video class="idx-video" src="' + cat.video + '" poster="' + cat.base + '" muted playsinline preload="auto" aria-hidden="true"></video>'
+      ? '<video class="idx-video" src="' + cat.video + '" poster="' + cat.poster + '" muted playsinline preload="auto" aria-hidden="true"></video>'
       : '<img class="idx-hover" src="' + cat.hover + '" alt="" loading="lazy">';
     col.innerHTML =
       '<img class="idx-base" src="' + cat.base + '" alt="" loading="lazy">' +
