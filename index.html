@@ -235,22 +235,25 @@
     object-position:top center;
     display:block;
   }
-  /* video tiles: the video canvas (790x3004) has a white margin left and above the
-     tile panel (panel at x=86, y=153, 704 wide). Size/offset it so the panel lands
-     exactly on the tile and the margin hangs outside, letting the pop-up art spill
-     past the tile's left/top edges; the right/bottom edges still clip. */
+  /* video tiles: the video canvas has a white margin left of and above the tile panel.
+     Size/offset it so the panel lands exactly on the tile and the margin hangs outside,
+     letting the pop-up art spill past the tile's left/top edges; the right/bottom edges
+     still clip. Geometry in source px: --cw/--ch canvas size, --px/--py panel top-left,
+     --pw panel width (the panel always runs to the canvas's right and bottom edges).
+     Defaults fit the 790x3004 exports; a tile can override them inline. */
   .index-col.has-video{
     overflow:visible;
     clip-path:inset(-100vh 0 0 -100vw);
   }
   .index-col .idx-video{
+    --cw:790; --ch:3004; --px:86; --py:153; --pw:704;
     position:absolute;
     top:0;
-    left:calc(-86 / 704 * 100%);
-    width:calc(790 / 704 * 100%);
+    left:calc(var(--px) / var(--pw) * -100%);
+    width:calc(var(--cw) / var(--pw) * 100%);
     height:auto;
-    aspect-ratio:790 / 3004;
-    margin-top:calc(-153 / 704 * 100%); /* % margins resolve against width, like left */
+    aspect-ratio:var(--cw) / var(--ch);
+    margin-top:calc(var(--py) / var(--pw) * -100%); /* % margins resolve against width, like left */
     display:block;
     pointer-events:none;
   }
@@ -283,15 +286,15 @@
 
   @media (max-width:900px){
     /* column gaps fit a video's left margin; row gap and top padding fit its top
-       margin (153/704 of the tile width), so row 2's upward spill clears row 1 */
+       margin (up to 154/703 of the tile width), so row 2's upward spill clears row 1 */
     .index-section{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
       grid-auto-rows:auto;
       height:auto;
       column-gap:3.82%;
-      row-gap:6.3vw;
-      padding:6.3vw 3.65% 3.65%;
+      row-gap:6.4vw;
+      padding:6.4vw 3.65% 3.65%;
     }
     .index-col{
       aspect-ratio:706 / 2850; /* same proportions as the source index artwork - no cropping needed */
@@ -444,19 +447,21 @@
       link:'residential.html'
     },
     {
-      key:'freelance', base:'images/idx-freelance-base.jpg', hover:'images/idx-freelance.jpg',
+      key:'freelance', base:'images/idx-freelance-base.jpg', video:'images/idx-freelance.mp4', poster:'images/idx-freelance-poster.jpg',
+      frame:{ py:154 },
       title:'Freelance',
       desc:'Projects include villa and club house design and a completed interior project.',
       link:'freelance.html'
     },
     {
-      key:'group', base:'images/idx-group-base.jpg', hover:'images/idx-group.jpg',
+      key:'group', base:'images/idx-group-base.jpg', video:'images/idx-group.mp4', poster:'images/idx-group-poster.jpg',
       title:'Group Projects',
       desc:'Nari gandhi citation wining project included also doccumentation of Nepal after the earthquake and Varanasi Ghats.',
       link:'group.html'
     },
     {
-      key:'misc', base:'images/idx-misc-base.jpg', hover:'images/idx-misc.jpg',
+      key:'misc', base:'images/idx-misc-base.jpg', video:'images/idx-misc.mp4', poster:'images/idx-misc-poster.jpg',
+      frame:{ cw:774, px:71, py:154, pw:703 },
       title:'Miscellaneous',
       desc:'Few of my achivements to highlight other aspects of myself to date.',
       link:'misc.html'
@@ -477,9 +482,11 @@
   indexCategories.forEach(cat => {
     const col = document.createElement('div');
     col.className = cat.video ? 'index-col has-video' : 'index-col';
-    // a tile's video replaces its hover image; its poster is the video's own first frame
+    // a tile's video replaces its hover image; its poster is the video's own first frame.
+    // frame overrides the default canvas/panel geometry (see .idx-video) for odd-sized exports
+    const frameVars = cat.frame ? Object.entries(cat.frame).map(([k, v]) => '--' + k + ':' + v).join(';') : '';
     const reveal = cat.video
-      ? '<video class="idx-video" src="' + cat.video + '" poster="' + cat.poster + '" muted playsinline preload="auto" aria-hidden="true"></video>'
+      ? '<video class="idx-video" style="' + frameVars + '" src="' + cat.video + '" poster="' + cat.poster + '" muted playsinline preload="auto" aria-hidden="true"></video>'
       : '<img class="idx-hover" src="' + cat.hover + '" alt="" loading="lazy">';
     col.innerHTML =
       '<img class="idx-base" src="' + cat.base + '" alt="" loading="lazy">' +
