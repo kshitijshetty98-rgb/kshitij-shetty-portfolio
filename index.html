@@ -499,6 +499,7 @@
     if(!entries.some(e => e.isIntersecting)) return;
     revealObserver.disconnect();
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ showFinalFrame(); return; }
+    timelineVideo.defaultPlaybackRate = timelineVideo.playbackRate = 0.75;
     // if autoplay is blocked (e.g. iOS Low Power Mode), show the finished timeline rather than a blank frame
     timelineVideo.play().catch(showFinalFrame);
   }, { threshold:0.4 });
