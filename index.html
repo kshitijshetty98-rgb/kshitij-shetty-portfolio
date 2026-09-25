@@ -471,9 +471,8 @@
     const heroProgress = clamp(window.scrollY / vh, 0, 1);
     welcome.style.opacity = String(1 - heroProgress);
 
-    // desktop/tablet only: pin the section, then pan the track and scrub the video
-    // together from vertical scroll. on mobile the strip scrolls natively and
-    // onTimelineScroll scrubs from its scrollLeft instead.
+    // desktop/tablet only: pin the section and pan the track based on scroll position.
+    // on mobile the CSS switches this to a native horizontally-swipeable strip instead.
     if(isMobileLayout()){
       timelineTrack.style.transform = '';
       return;
@@ -481,54 +480,32 @@
 
     const rect = timelineSection.getBoundingClientRect();
     const scrollable = timelineSection.offsetHeight - vh;
-    // pan only while pinned, but start the video as soon as the section enters the
-    // viewport so it isn't sitting on the blank first frame when it arrives
-    const panProgress = clamp(-rect.top / scrollable, 0, 1);
-    const playProgress = clamp((vh - rect.top) / (scrollable + vh), 0, 1);
+    const progress = clamp(-rect.top / scrollable, 0, 1);
 
     const maxTranslate = Math.max(0, timelineTrack.offsetWidth - window.innerWidth);
-    timelineTrack.style.transform = 'translateX(' + (-panProgress * maxTranslate) + 'px)';
-    seekVideo(playProgress);
+    timelineTrack.style.transform = 'translateX(' + (-progress * maxTranslate) + 'px)';
   }
 
-  // ---------- timeline video scrubbing ----------
+  // ---------- timeline reveal: plays once when it comes into view, then rests on its final frame ----------
   const timelineVideo = document.getElementById('timelineVideo');
-  const timelineSticky = document.querySelector('.timeline-sticky');
-  let videoDuration = 0;
-  let videoReady = false;
 
-  function seekVideo(progress){
-    if(!videoReady) return;
-    const t = progress * videoDuration;
-    if(Math.abs(timelineVideo.currentTime - t) > 0.01){
-      timelineVideo.currentTime = t;
-    }
+  function showFinalFrame(){
+    const seekToEnd = () => { timelineVideo.currentTime = timelineVideo.duration; };
+    if(timelineVideo.readyState >= 1) seekToEnd();
+    else timelineVideo.addEventListener('loadedmetadata', seekToEnd, { once:true });
   }
 
-  function onTimelineScroll(){
-    if(!isMobileLayout()) return;
-    // keep the drawing edge ~80% across the visible strip, so it never shows blank
-    const edge = timelineSticky.scrollLeft + timelineSticky.clientWidth * 0.8;
-    seekVideo(clamp(edge / timelineSticky.scrollWidth, 0, 1));
-  }
-
-  function onVideoMetadata(){
-    videoDuration = timelineVideo.duration;
-    videoReady = true;
-    // iOS won't paint seeked frames for a video that has never played, so prime it once
-    const priming = timelineVideo.play();
-    if(priming){
-      priming.then(() => { timelineVideo.pause(); onScroll(); onTimelineScroll(); }).catch(() => {});
-    }
-    onScroll();
-    onTimelineScroll();
-  }
-  if(timelineVideo.readyState >= 1){ onVideoMetadata(); }
-  else { timelineVideo.addEventListener('loadedmetadata', onVideoMetadata); }
+  const revealObserver = new IntersectionObserver((entries) => {
+    if(!entries.some(e => e.isIntersecting)) return;
+    revealObserver.disconnect();
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ showFinalFrame(); return; }
+    // if autoplay is blocked (e.g. iOS Low Power Mode), show the finished timeline rather than a blank frame
+    timelineVideo.play().catch(showFinalFrame);
+  }, { threshold:0.4 });
+  revealObserver.observe(document.querySelector('.timeline-sticky'));
 
   window.addEventListener('scroll', onScroll, { passive:true });
-  timelineSticky.addEventListener('scroll', onTimelineScroll, { passive:true });
-  window.addEventListener('resize', () => { onScroll(); onTimelineScroll(); });
+  window.addEventListener('resize', onScroll);
   onScroll();
 </script>
 
