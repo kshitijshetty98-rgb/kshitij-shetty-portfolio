@@ -744,21 +744,43 @@
 
 <script>
   const welcome = document.getElementById('welcome');
+  const welcomeFrame = document.querySelector('.welcome-frame');
+  const skillsBandEl = document.getElementById('skillsBand');
   const timelineSection = document.getElementById('timelineSection');
   const timelineTrack = document.getElementById('timelineTrack');
 
   function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
   const isMobileLayout = () => window.matchMedia('(max-width:768px)').matches;
+  // matches the CSS breakpoint (max-width:767px) that moves the skills band below the
+  // full-height photo — this is where the band needs its own independent fade (see below)
+  const isPhoneLayout = () => window.matchMedia('(max-width:767px)').matches;
 
   function onScroll(){
     const vh = window.innerHeight;
 
-    // hero (photo + skills band live inside #welcome together) fades out over its own
-    // rendered height as the user scrolls past it, keeping the band in sync with the photo;
-    // using the element's own height (not just vh) keeps this correct on mobile, where the
-    // band sits below a full-height photo and #welcome is taller than one viewport
-    const heroProgress = clamp(window.scrollY / welcome.offsetHeight, 0, 1);
-    welcome.style.opacity = String(1 - heroProgress);
+    if(isPhoneLayout()){
+      // phones: the band sits below a full-height photo, so it would already be half-faded
+      // by the time it scrolls into view if it inherited #welcome's fade. Instead, leave
+      // #welcome itself unfaded and fade the photo and band independently: the photo keeps
+      // the exact fade it always had (over #welcome's full rendered height), while the band
+      // fades only as it scrolls off the top of the screen, based on its own position.
+      welcome.style.opacity = '';
+
+      const heroProgress = clamp(window.scrollY / welcome.offsetHeight, 0, 1);
+      welcomeFrame.style.opacity = String(1 - heroProgress);
+
+      const bandRect = skillsBandEl.getBoundingClientRect();
+      const bandHeight = skillsBandEl.offsetHeight || 1;
+      const bandExitProgress = clamp(-bandRect.top / bandHeight, 0, 1);
+      skillsBandEl.style.opacity = String(1 - bandExitProgress);
+    } else {
+      // desktop/tablet: unchanged — photo and band share one fade via #welcome's own height
+      welcomeFrame.style.opacity = '';
+      skillsBandEl.style.opacity = '';
+
+      const heroProgress = clamp(window.scrollY / welcome.offsetHeight, 0, 1);
+      welcome.style.opacity = String(1 - heroProgress);
+    }
 
     // desktop/tablet only: pin the section and pan the track based on scroll position.
     // on mobile the CSS switches this to a native horizontally-swipeable strip instead.
