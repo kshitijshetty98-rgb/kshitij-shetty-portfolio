@@ -206,6 +206,86 @@
     }
   }
 
+  /* ---------- SKILLS ---------- */
+  #skills{
+    position:relative;
+    background:var(--bg);
+    padding:9vh 6vw 10vh;
+  }
+  #skills .skills-inner{
+    max-width:1080px;
+    margin:0 auto;
+  }
+  #skills .skills-eyebrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    margin-bottom:clamp(44px, 7vh, 80px);
+  }
+  #skills .skills-eyebrow .bar{
+    width:1px;
+    height:1.2em;
+    background:var(--text);
+    opacity:.5;
+  }
+  #skills .skills-eyebrow h2{
+    font-family:'Playfair Display', serif;
+    font-weight:500;
+    font-size:clamp(1.7rem, 3.2vw, 2.6rem);
+    letter-spacing:.02em;
+    color:var(--text);
+    text-align:center;
+  }
+  #skills .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:48px 40px;
+  }
+  #skills .skills-group h3{
+    font-family:'Playfair Display', serif;
+    font-weight:500;
+    font-size:.95rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--text);
+    opacity:.6;
+    margin-bottom:18px;
+    text-align:center;
+  }
+  #skills .skills-group ul{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px 12px;
+  }
+  #skills .skills-group li{
+    font-family:'Playfair Display', serif;
+    font-size:1rem;
+    line-height:1;
+    color:var(--text);
+    padding:9px 18px;
+    border:1px solid rgba(20,20,20,.2);
+    border-radius:999px;
+    white-space:nowrap;
+  }
+
+  @media (max-width:900px){
+    #skills .skills-grid{
+      grid-template-columns:repeat(2, 1fr);
+      gap:40px 32px;
+    }
+  }
+
+  @media (max-width:640px){
+    #skills{ padding:7vh 6vw 8vh; }
+    #skills .skills-grid{
+      grid-template-columns:1fr;
+      gap:32px;
+    }
+  }
+
   /* ---------- MAIN INDEX ---------- */
   /* gaps/side padding are sized to (just over) a tile video's white left margin
      (86/704 of the tile width), so a video's margin fills its own gap without
@@ -407,6 +487,59 @@
     <div class="timeline-sticky">
       <div class="timeline-track" id="timelineTrack">
         <video src="images/timeline.mp4" id="timelineVideo" width="2560" height="1010" muted playsinline preload="auto" aria-label="Career timeline — Ar. Kshitij Shetty, 2016 to 2026"></video>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills" id="skills" aria-labelledby="skillsHeading">
+    <div class="skills-inner">
+      <div class="skills-eyebrow">
+        <div class="bar"></div>
+        <h2 id="skillsHeading">Skills</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skills-group">
+          <h3>BIM &amp; CAD</h3>
+          <ul>
+            <li>Revit</li>
+            <li>AutoCAD</li>
+          </ul>
+        </div>
+        <div class="skills-group">
+          <h3>3D &amp; Parametric</h3>
+          <ul>
+            <li>Rhino</li>
+            <li>Grasshopper</li>
+            <li>SketchUp</li>
+          </ul>
+        </div>
+        <div class="skills-group">
+          <h3>Computation &amp; AI</h3>
+          <ul>
+            <li>Python</li>
+            <li>ComfyUI</li>
+          </ul>
+        </div>
+        <div class="skills-group">
+          <h3>Environmental Analysis</h3>
+          <ul>
+            <li>Ladybug Tools</li>
+          </ul>
+        </div>
+        <div class="skills-group">
+          <h3>Visualization</h3>
+          <ul>
+            <li>Lumion</li>
+            <li>D5 Render</li>
+            <li>Photoshop</li>
+          </ul>
+        </div>
+        <div class="skills-group">
+          <h3>GIS</h3>
+          <ul>
+            <li>QGIS</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
