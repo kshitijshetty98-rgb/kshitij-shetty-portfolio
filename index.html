@@ -40,12 +40,16 @@
     height:100vh;
     height:100dvh; /* avoids iOS/Android address-bar resize jump */
     overflow:hidden;
+    display:flex;
+    flex-direction:column;
   }
 
   .welcome-frame{
     position:relative;
     width:100%;
-    height:100%;
+    flex:1 1 auto;
+    min-height:0;
+    overflow:hidden;
   }
 
   .welcome-frame img{
@@ -72,7 +76,8 @@
     position:absolute;
     left:0; right:0; bottom:0;
     height:38%;
-    background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.9) 78%, #fff 100%);
+    /* fades to the skills band's grey (not white) so the photo meets the band with no seam */
+    background:linear-gradient(to bottom, rgba(239,239,237,0) 0%, rgba(239,239,237,.9) 78%, #efefed 100%);
     pointer-events:none;
   }
 
@@ -206,84 +211,100 @@
     }
   }
 
-  /* ---------- SKILLS ---------- */
-  #skills{
+  /* ---------- SKILLS BAND (attached under the hero photo, shares its first-viewport
+     opacity fade via #welcome — see onScroll) ---------- */
+  .skills-band{
+    flex:0 0 auto;
     position:relative;
-    background:var(--bg);
-    padding:9vh 6vw 10vh;
+    background:#efefed;
+    padding:clamp(16px, 3vh, 30px) 5vw clamp(20px, 3.6vh, 34px);
   }
-  #skills .skills-inner{
-    max-width:1080px;
-    margin:0 auto;
-  }
-  #skills .skills-eyebrow{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:16px;
-    margin-bottom:clamp(44px, 7vh, 80px);
-  }
-  #skills .skills-eyebrow .bar{
-    width:1px;
-    height:1.2em;
-    background:var(--text);
-    opacity:.5;
-  }
-  #skills .skills-eyebrow h2{
-    font-family:'Playfair Display', serif;
-    font-weight:500;
-    font-size:clamp(1.7rem, 3.2vw, 2.6rem);
-    letter-spacing:.02em;
-    color:var(--text);
-    text-align:center;
-  }
-  #skills .skills-grid{
+  .skills-list{
+    list-style:none;
     display:grid;
     grid-template-columns:repeat(3, 1fr);
-    gap:48px 40px;
+    justify-items:center;
+    gap:clamp(16px, 2.6vh, 26px) 6vw;
+    max-width:460px;
+    margin:0 auto;
   }
-  #skills .skills-group h3{
-    font-family:'Playfair Display', serif;
-    font-weight:500;
-    font-size:.95rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--text);
-    opacity:.6;
-    margin-bottom:18px;
-    text-align:center;
-  }
-  #skills .skills-group ul{
-    list-style:none;
+  .skill{
     display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:10px 12px;
+    flex-direction:column;
+    align-items:center;
+    gap:7px;
+    text-align:center;
+    min-width:0;
   }
-  #skills .skills-group li{
+  .skill-ring{
+    position:relative;
+    width:clamp(48px, 15vw, 66px);
+    height:clamp(48px, 15vw, 66px);
+    flex:none;
+  }
+  .skill-ring svg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    transform:rotate(-90deg); /* progress arc starts at 12 o'clock */
+    overflow:visible;
+  }
+  .ring-track{ fill:none; stroke:#dcdcda; stroke-width:7; }
+  .ring-progress{ fill:none; stroke:#5c5c5c; stroke-width:7; stroke-linecap:round; }
+  .skill-logo{
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%, -50%);
+    width:42%;
+    height:42%;
+    object-fit:contain;
+    /* forces every vendor mark to the same flat charcoal grey regardless of source colour */
+    filter:brightness(0) invert(36%);
+  }
+  /* Rhino's line-art reads too small at the default logo size; the Revit mark is already
+     pre-tinted to grey (it needs its 3 facets to stay readable) so it skips the filter */
+  .skill[data-app="rhino"] .skill-logo{ width:52%; height:52%; }
+  .skill[data-app="revit"] .skill-logo{ filter:none; }
+  .skill-label{
     font-family:'Playfair Display', serif;
-    font-size:1rem;
-    line-height:1;
+    line-height:1.35;
+  }
+  .skill-name{
+    display:block;
+    font-size:clamp(.64rem, 2.6vw, .76rem);
+    letter-spacing:.02em;
     color:var(--text);
-    padding:9px 18px;
-    border:1px solid rgba(20,20,20,.2);
-    border-radius:999px;
-    white-space:nowrap;
+  }
+  .skill-score{
+    display:block;
+    font-size:clamp(.58rem, 2.2vw, .68rem);
+    color:var(--text);
+    opacity:.55;
   }
 
-  @media (max-width:900px){
-    #skills .skills-grid{
-      grid-template-columns:repeat(2, 1fr);
-      gap:40px 32px;
+  @media (min-width:1024px){
+    .skills-band{ padding:clamp(18px, 3vh, 30px) 3vw; }
+    .skills-list{
+      display:flex;
+      flex-wrap:nowrap;
+      justify-content:center;
+      align-items:flex-start;
+      gap:clamp(12px, 2.2vw, 34px);
+      max-width:1360px;
     }
+    .skill{ flex:0 1 auto; max-width:108px; }
+    .skill-ring{ width:clamp(50px, 4.4vw, 74px); height:clamp(50px, 4.4vw, 74px); }
+    .skill-name{ font-size:clamp(.68rem, 1.05vw, .8rem); }
+    .skill-score{ font-size:clamp(.6rem, .85vw, .7rem); }
   }
 
-  @media (max-width:640px){
-    #skills{ padding:7vh 6vw 8vh; }
-    #skills .skills-grid{
-      grid-template-columns:1fr;
-      gap:32px;
-    }
+  @media (max-width:767px){
+    /* on phones, squashing the hero to also fit the band in the first viewport crops the
+       photo badly, so the band sits directly under the full-height photo instead */
+    .welcome{ height:auto; overflow:visible; }
+    .welcome-frame{ flex:none; height:100vh; height:100dvh; }
+    .skills-list{ max-width:340px; gap:22px 7vw; }
   }
 
   /* ---------- MAIN INDEX ---------- */
@@ -479,6 +500,128 @@
         </div>
       </div>
     </div>
+
+    <section class="skills-band" id="skillsBand" aria-label="Software skills">
+      <ul class="skills-list" id="skillsList">
+        <li class="skill" data-app="autocad" data-score="9" aria-label="AutoCAD: 9 out of 10">
+          <div class="skill-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+              <circle class="ring-progress" cx="50" cy="50" r="42" stroke-dasharray="263.894" stroke-dashoffset="26.389"></circle>
+            </svg>
+            <img class="skill-logo" src="images/skills/autocad.svg" alt="" aria-hidden="true" loading="lazy">
+          </div>
+          <div class="skill-label" aria-hidden="true">
+            <span class="skill-name">AutoCAD</span>
+            <span class="skill-score"><span class="score-num">9</span>/10</span>
+          </div>
+        </li>
+        <li class="skill" data-app="rhino" data-score="9" aria-label="Rhino: 9 out of 10">
+          <div class="skill-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+              <circle class="ring-progress" cx="50" cy="50" r="42" stroke-dasharray="263.894" stroke-dashoffset="26.389"></circle>
+            </svg>
+            <img class="skill-logo" src="images/skills/rhino.svg" alt="" aria-hidden="true" loading="lazy">
+          </div>
+          <div class="skill-label" aria-hidden="true">
+            <span class="skill-name">Rhino</span>
+            <span class="skill-score"><span class="score-num">9</span>/10</span>
+          </div>
+        </li>
+        <li class="skill" data-app="grasshopper" data-score="9" aria-label="Grasshopper: 9 out of 10">
+          <div class="skill-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+              <circle class="ring-progress" cx="50" cy="50" r="42" stroke-dasharray="263.894" stroke-dashoffset="26.389"></circle>
+            </svg>
+            <img class="skill-logo" src="images/skills/grasshopper.svg" alt="" aria-hidden="true" loading="lazy">
+          </div>
+          <div class="skill-label" aria-hidden="true">
+            <span class="skill-name">Grasshopper</span>
+            <span class="skill-score"><span class="score-num">9</span>/10</span>
+          </div>
+        </li>
+        <li class="skill" data-app="revit" data-score="8" aria-label="Revit: 8 out of 10">
+          <div class="skill-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+              <circle class="ring-progress" cx="50" cy="50" r="42" stroke-dasharray="263.894" stroke-dashoffset="52.779"></circle>
+            </svg>
+            <img class="skill-logo" src="images/skills/revit.svg" alt="" aria-hidden="true" loading="lazy">
+          </div>
+          <div class="skill-label" aria-hidden="true">
+            <span class="skill-name">Revit</span>
+            <span class="skill-score"><span class="score-num">8</span>/10</span>
+          </div>
+        </li>
+        <li class="skill" data-app="lumion" data-score="9" aria-label="Lumion: 9 out of 10">
+          <div class="skill-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+              <circle class="ring-progress" cx="50" cy="50" r="42" stroke-dasharray="263.894" stroke-dashoffset="26.389"></circle>
+            </svg>
+            <img class="skill-logo" src="images/skills/lumion.svg" alt="" aria-hidden="true" loading="lazy">
+          </div>
+          <div class="skill-label" aria-hidden="true">
+            <span class="skill-name">Lumion</span>
+            <span class="skill-score"><span class="score-num">9</span>/10</span>
+          </div>
+        </li>
+        <li class="skill" data-app="sketchup" data-score="9" aria-label="SketchUp: 9 out of 10">
+          <div class="skill-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+              <circle class="ring-progress" cx="50" cy="50" r="42" stroke-dasharray="263.894" stroke-dashoffset="26.389"></circle>
+            </svg>
+            <img class="skill-logo" src="images/skills/sketchup.svg" alt="" aria-hidden="true" loading="lazy">
+          </div>
+          <div class="skill-label" aria-hidden="true">
+            <span class="skill-name">SketchUp</span>
+            <span class="skill-score"><span class="score-num">9</span>/10</span>
+          </div>
+        </li>
+        <li class="skill" data-app="qgis" data-score="8" aria-label="QGIS: 8 out of 10">
+          <div class="skill-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+              <circle class="ring-progress" cx="50" cy="50" r="42" stroke-dasharray="263.894" stroke-dashoffset="52.779"></circle>
+            </svg>
+            <img class="skill-logo" src="images/skills/qgis.svg" alt="" aria-hidden="true" loading="lazy">
+          </div>
+          <div class="skill-label" aria-hidden="true">
+            <span class="skill-name">QGIS</span>
+            <span class="skill-score"><span class="score-num">8</span>/10</span>
+          </div>
+        </li>
+        <li class="skill" data-app="photoshop" data-score="9" aria-label="Photoshop: 9 out of 10">
+          <div class="skill-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+              <circle class="ring-progress" cx="50" cy="50" r="42" stroke-dasharray="263.894" stroke-dashoffset="26.389"></circle>
+            </svg>
+            <img class="skill-logo" src="images/skills/photoshop.svg" alt="" aria-hidden="true" loading="lazy">
+          </div>
+          <div class="skill-label" aria-hidden="true">
+            <span class="skill-name">Photoshop</span>
+            <span class="skill-score"><span class="score-num">9</span>/10</span>
+          </div>
+        </li>
+        <li class="skill" data-app="claude" data-score="9" aria-label="Claude (AI): 9 out of 10">
+          <div class="skill-ring">
+            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+              <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+              <circle class="ring-progress" cx="50" cy="50" r="42" stroke-dasharray="263.894" stroke-dashoffset="26.389"></circle>
+            </svg>
+            <img class="skill-logo" src="images/skills/claude.svg" alt="" aria-hidden="true" loading="lazy">
+          </div>
+          <div class="skill-label" aria-hidden="true">
+            <span class="skill-name">Claude (AI)</span>
+            <span class="skill-score"><span class="score-num">9</span>/10</span>
+          </div>
+        </li>
+      </ul>
+    </section>
   </section>
 
   <div class="section-spacer"></div>
@@ -487,59 +630,6 @@
     <div class="timeline-sticky">
       <div class="timeline-track" id="timelineTrack">
         <video src="images/timeline.mp4" id="timelineVideo" width="2560" height="1010" muted playsinline preload="auto" aria-label="Career timeline — Ar. Kshitij Shetty, 2016 to 2026"></video>
-      </div>
-    </div>
-  </section>
-
-  <section class="skills" id="skills" aria-labelledby="skillsHeading">
-    <div class="skills-inner">
-      <div class="skills-eyebrow">
-        <div class="bar"></div>
-        <h2 id="skillsHeading">Skills</h2>
-      </div>
-      <div class="skills-grid">
-        <div class="skills-group">
-          <h3>BIM &amp; CAD</h3>
-          <ul>
-            <li>Revit</li>
-            <li>AutoCAD</li>
-          </ul>
-        </div>
-        <div class="skills-group">
-          <h3>3D &amp; Parametric</h3>
-          <ul>
-            <li>Rhino</li>
-            <li>Grasshopper</li>
-            <li>SketchUp</li>
-          </ul>
-        </div>
-        <div class="skills-group">
-          <h3>Computation &amp; AI</h3>
-          <ul>
-            <li>Python</li>
-            <li>ComfyUI</li>
-          </ul>
-        </div>
-        <div class="skills-group">
-          <h3>Environmental Analysis</h3>
-          <ul>
-            <li>Ladybug Tools</li>
-          </ul>
-        </div>
-        <div class="skills-group">
-          <h3>Visualization</h3>
-          <ul>
-            <li>Lumion</li>
-            <li>D5 Render</li>
-            <li>Photoshop</li>
-          </ul>
-        </div>
-        <div class="skills-group">
-          <h3>GIS</h3>
-          <ul>
-            <li>QGIS</li>
-          </ul>
-        </div>
       </div>
     </div>
   </section>
@@ -663,8 +753,11 @@
   function onScroll(){
     const vh = window.innerHeight;
 
-    // hero fades out to white over its own height as the user scrolls past it
-    const heroProgress = clamp(window.scrollY / vh, 0, 1);
+    // hero (photo + skills band live inside #welcome together) fades out over its own
+    // rendered height as the user scrolls past it, keeping the band in sync with the photo;
+    // using the element's own height (not just vh) keeps this correct on mobile, where the
+    // band sits below a full-height photo and #welcome is taller than one viewport
+    const heroProgress = clamp(window.scrollY / welcome.offsetHeight, 0, 1);
     welcome.style.opacity = String(1 - heroProgress);
 
     // desktop/tablet only: pin the section and pan the track based on scroll position.
@@ -700,6 +793,93 @@
     timelineVideo.play().catch(showFinalFrame);
   }, { threshold:0.4 });
   revealObserver.observe(document.querySelector('.timeline-sticky'));
+
+  // ---------- skills band: rings fill 0 -> score once the band is in view AND the hero
+  // intro (the name-line slide-up) has finished, so it never competes with the intro ----------
+  (function initSkillsBand(){
+    const skillsList = document.getElementById('skillsList');
+    const skillsBand = document.getElementById('skillsBand');
+    if(!skillsList || !skillsBand) return;
+
+    const skillItems = Array.from(skillsList.querySelectorAll('.skill'));
+    const RING_R = 42;
+    const RING_CIRC = 2 * Math.PI * RING_R;
+    const STAGGER = 90;   // ms between each ring starting
+    const DURATION = 1350; // ms each ring takes to fill
+
+    // reduced motion: the markup already renders every ring/number at its final score,
+    // so there is nothing to do here — leave that final state exactly as authored.
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function easeOutCubic(x){ return 1 - Math.pow(1 - x, 3); }
+
+    // start every ring at 0 (overriding the pre-rendered final markup) so it has
+    // somewhere to animate from once triggered
+    skillItems.forEach(li => {
+      const circle = li.querySelector('.ring-progress');
+      circle.style.strokeDasharray = String(RING_CIRC);
+      circle.style.strokeDashoffset = String(RING_CIRC);
+      const numEl = li.querySelector('.score-num');
+      if(numEl) numEl.textContent = '0';
+    });
+
+    let heroIntroDone = false;
+    let bandInView = false;
+    let played = false;
+
+    function maybePlay(){
+      if(played || !heroIntroDone || !bandInView) return;
+      played = true;
+      runAnimation();
+    }
+
+    function runAnimation(){
+      const startTime = performance.now();
+      function frame(now){
+        let running = false;
+        skillItems.forEach((li, i) => {
+          const t = now - startTime - i * STAGGER;
+          if(t < 0){ running = true; return; }
+          const p = Math.min(1, t / DURATION);
+          if(p < 1) running = true;
+          const score = parseFloat(li.dataset.score);
+          const value = easeOutCubic(p) * score;
+          li.querySelector('.ring-progress').style.strokeDashoffset = String(RING_CIRC * (1 - value / 10));
+          const numEl = li.querySelector('.score-num');
+          if(numEl) numEl.textContent = String(Math.round(value));
+        });
+        if(running){
+          requestAnimationFrame(frame);
+        } else {
+          // snap every ring/number to its exact final value, clear of any rounding drift
+          skillItems.forEach(li => {
+            const score = parseFloat(li.dataset.score);
+            li.querySelector('.ring-progress').style.strokeDashoffset = String(RING_CIRC * (1 - score / 10));
+            const numEl = li.querySelector('.score-num');
+            if(numEl) numEl.textContent = String(score);
+          });
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // real "hero intro finished" signal: the name-line is the last piece of the intro
+    // to animate in (see .name-line's slideUp), so its animationend marks the intro's end
+    const nameLine = document.querySelector('.name-line');
+    if(nameLine){
+      nameLine.addEventListener('animationend', () => { heroIntroDone = true; maybePlay(); }, { once:true });
+    } else {
+      heroIntroDone = true;
+    }
+
+    const bandObserver = new IntersectionObserver((entries) => {
+      if(!entries.some(e => e.isIntersecting)) return;
+      bandObserver.disconnect();
+      bandInView = true;
+      maybePlay();
+    }, { threshold:0.3 });
+    bandObserver.observe(skillsBand);
+  })();
 
   window.addEventListener('scroll', onScroll, { passive:true });
   window.addEventListener('resize', onScroll);
