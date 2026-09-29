@@ -160,6 +160,39 @@
       height:auto;
     }
   }
+
+  /* ---------- slide decks (Rammed Chair, etc.): a landscape board whose slide
+     image keeps its exact aspect ratio so absolutely-positioned video/GIF
+     overlays can be placed with percentages that always land on the right
+     pixels of the slide, at any viewport size ---------- */
+  .thesis-board .rammed-frame{
+    position:relative;
+    width:100%;
+    max-width:100%;
+    max-height:100%;
+    aspect-ratio:1.777778;
+  }
+  .thesis-board .rammed-frame img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+  }
+  .thesis-board .rammed-frame video.rammed-media{
+    position:absolute;
+    object-fit:cover;
+    background:#000;
+  }
+  @media (max-width:768px){
+    .thesis-board .rammed-frame{
+      max-height:none;
+    }
+    .thesis-board .rammed-frame img{
+      height:100%;
+    }
+  }
 </style>
 </head>
 <body>
@@ -170,6 +203,219 @@
     <img src="images/group-hero.jpg" alt="Group Projects — architecture portfolio">
     <h1 class="hero-title">Group Projects</h1>
     <div class="thesis-hero-fade"></div>
+  </section>
+
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-1.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — cover">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-2.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — TOTEM">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-3.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Totem - Reference">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-4.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Totem strategy">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-5.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Totem - Architectural Drawings, board 1">
+      <video class="rammed-media" style="left:59.3709%;top:7.7418%;width:37.2493%;height:90.4637%;" src="images/group-rammed-5-1.mp4" poster="images/group-rammed-5-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-6.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Totem - Architectural Drawings, board 2">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-7.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Totem - Architectural Drawings, board 3">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-8.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Totem strategy, continued">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-9.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — INTERFACE ELEMENT">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-10.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Interface Element - Reference">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-11.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Interface Element - Architectural Drawings">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-12.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Interface Element - Renders">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-13.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — STONE WALLS">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-14.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Stone Wall - Reference">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-15.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Stone Wall - Elements">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-16.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Stone Wall - Architectural Drawings">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-17.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Stone Wall - Renders">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-18.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — SLOPE WALL">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-19.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Slope Wall - Elements">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-20.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Slope Wall - Architectural Drawings, board 1">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-21.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Slope Wall - Architectural Drawings, board 2">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-22.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Slope Wall - Architectural Drawings, board 3">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-23.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Slope Wall - Architectural Drawings, board 4">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-24.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Slope Wall - Architectural Drawings, board 5">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-25.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Slope Wall - Architectural Drawings, board 6">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-26.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Slope Wall - Architectural Drawings, board 7">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-27.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Slope Wall - Renders">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-28.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — INITIAL RAMMED PROTOTYPE">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-29.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Initial Prototype">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-30.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — FINAL RAMMED PROTOTYPE">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-31.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — the finished chair">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-32.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Chair - Architectural Drawings">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-33.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — The material">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-34.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Production process at a glance">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-35.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Formwork: the chair in negative">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-36.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Chair - Design">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-37.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — ~50% volume reduction per lift under hand compaction">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-38.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Demoulding and curing">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-39.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — FINAL RENDERS">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-40.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — final render, view 1">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-41.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — final render, view 2">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-rammed-42.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — Site walkthrough">
+      <video class="rammed-media" style="left:34.3745%;top:6.2992%;width:64.2326%;height:91.5564%;" src="images/group-rammed-42-1.mp4" poster="images/group-rammed-42-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
   </section>
 
   <section class="thesis-board">
@@ -244,6 +490,27 @@
     onScroll();
   }
   setupHeroFade(document.getElementById('groupHero'));
+
+  // Rammed Chair slide videos: play while a clip is scrolled into view, pause
+  // when it isn't, and leave the poster frame showing for reduced-motion users
+  // or whenever play() is blocked.
+  (function setupRammedMedia(){
+    const clips = document.querySelectorAll('video.rammed-media');
+    if(!clips.length) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const v = entry.target;
+        if(entry.isIntersecting){
+          const p = v.play();
+          if(p && p.catch) p.catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    clips.forEach((v) => io.observe(v));
+  })();
 
   // came from the homepage: step back in history so the browser restores the exact
   // scroll position; otherwise the link's href lands on the project grid
