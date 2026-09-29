@@ -164,12 +164,22 @@
   /* ---------- slide decks (Rammed Chair, etc.): a landscape board whose slide
      image keeps its exact aspect ratio so absolutely-positioned video/GIF
      overlays can be placed with percentages that always land on the right
-     pixels of the slide, at any viewport size ---------- */
+     pixels of the slide, at any viewport size ----------
+     Sized (not just eyeballed) so the slides' visible artwork lines up with
+     the L.O.O.P. boards below: the boards' own on-screen width isn't a flat
+     % of viewport -- .thesis-board's height:100vh + object-fit:contain make
+     it width-constrained on some viewports and height-constrained on others,
+     since a board's ~1.41 aspect ratio is narrower than a 16:9 slide's. width
+     95.01% scales the slide down to match the boards' median content width
+     when both are width-constrained (mobile / narrow viewports); max-height
+     75.34% (kept as aspect-ratio, not vh, so it still equals the image's own
+     box -- see the overlay note below) reproduces the same extra shrink the
+     boards get on wide/short viewports. Source: rammed-width/compute-fix.js. */
   .thesis-board .rammed-frame{
     position:relative;
-    width:100%;
-    max-width:100%;
-    max-height:100%;
+    width:95.01%;
+    max-width:95.01%;
+    max-height:75.34%;
     aspect-ratio:1.777778;
   }
   .thesis-board .rammed-frame img{
