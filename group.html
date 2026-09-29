@@ -169,17 +169,27 @@
      the L.O.O.P. boards below: the boards' own on-screen width isn't a flat
      % of viewport -- .thesis-board's height:100vh + object-fit:contain make
      it width-constrained on some viewports and height-constrained on others,
-     since a board's ~1.41 aspect ratio is narrower than a 16:9 slide's. width
-     95.01% scales the slide down to match the boards' median content width
-     when both are width-constrained (mobile / narrow viewports); max-height
-     75.34% (kept as aspect-ratio, not vh, so it still equals the image's own
-     box -- see the overlay note below) reproduces the same extra shrink the
-     boards get on wide/short viewports. Source: rammed-width/compute-fix.js. */
+     since a board's ~1.41 aspect ratio is narrower than a 16:9 slide's. The
+     frame's width is min(95.01vw, 75.34vh * 16/9): the first term reproduces
+     the boards' median content width when both are width-constrained (mobile
+     / narrow viewports), the second when the boards go height-constrained on
+     wide/short viewports (same 95.01% / 75.34% figures the original flat
+     width%/max-height% rule used -- see rammed-width/compute-fix.js -- just
+     computed directly instead of via max-height+aspect-ratio, which clamps
+     the auto height but leaves an explicit width alone, so on wide desktop
+     viewports it silently broke the frame's 16:9 shape and threw off every
+     overlay's position and object-fit:cover crop). Height is left to
+     aspect-ratio so the frame always stays exactly == the image's own box,
+     which the overlay percentages below depend on. Rammed boards themselves
+     are height:auto (not the shared 100vh .thesis-board default) so slides
+     stack with no gap; L.O.O.P. boards are untouched. */
+  .thesis-board:has(.rammed-frame){
+    height:auto;
+  }
   .thesis-board .rammed-frame{
     position:relative;
-    width:95.01%;
-    max-width:95.01%;
-    max-height:75.34%;
+    width:min(95.01vw, calc(75.34vh * 16 / 9));
+    max-width:min(95.01vw, calc(75.34vh * 16 / 9));
     aspect-ratio:1.777778;
   }
   .thesis-board .rammed-frame img{
@@ -195,14 +205,12 @@
     object-fit:cover;
     background:#000;
   }
-  @media (max-width:768px){
-    .thesis-board .rammed-frame{
-      max-height:none;
-    }
-    .thesis-board .rammed-frame img{
-      height:100%;
-    }
-  }
+  /* breathing room at the two section joins the gap removal above would
+     otherwise close flush: hero -> first Rammed slide, last Rammed slide ->
+     first L.O.O.P. board. Chosen small and viewport-relative, well under the
+     letterboxing L.O.O.P. boards already show themselves at narrower shapes. */
+  #rammedFirst{ margin-top:6vh; }
+  #rammedLast{ margin-bottom:6vh; }
 </style>
 </head>
 <body>
@@ -215,7 +223,7 @@
     <div class="thesis-hero-fade"></div>
   </section>
 
-  <section class="thesis-board">
+  <section class="thesis-board" id="rammedFirst">
     <div class="rammed-frame">
       <img src="images/group-rammed-1.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — cover">
     </div>
@@ -417,7 +425,7 @@
       <img src="images/group-rammed-40.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — final render, view 1">
     </div>
   </section>
-  <section class="thesis-board">
+  <section class="thesis-board" id="rammedLast">
     <div class="rammed-frame">
       <img src="images/group-rammed-41.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — final render, view 2">
     </div>
