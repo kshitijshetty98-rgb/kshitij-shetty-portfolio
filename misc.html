@@ -133,6 +133,88 @@
       height:auto;
     }
   }
+
+  /* ---------- landscape slide boards (After Gaudi deck): a full-viewport board
+     whose slide image keeps its exact aspect ratio so absolutely-positioned
+     video/GIF overlays can be placed with percentages that always land on the
+     right pixels of the slide, at any viewport size. Ported verbatim (same
+     class shape + same magic width numbers) from group.html's Rammed Chair
+     slide-deck treatment, so a slide's on-screen width matches across pages ---------- */
+  .thesis-board{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .thesis-board img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+
+  @media (max-width:768px){
+    .thesis-board{
+      height:auto;
+      padding:0;
+    }
+    .thesis-board img{
+      height:auto;
+      display:block;
+    }
+  }
+
+  /* Rammed-style boards' own frame is height:auto (not the shared 100vh
+     .thesis-board default) so slides stack with ZERO gap. Width formula copied
+     exactly from group.html: min(95.01vw, 75.34vh * 16/9) -- see that file's CSS
+     comment for the full derivation; same figures keep a slide's on-screen
+     width equal across both pages. No max-height clamp on the frame: that
+     distorts the 16:9 shape and crops the overlays. overflow:hidden added
+     (group.html's Rammed Chair frame never needed it) because one After Gaudi
+     overlay's pptx position bleeds slightly past the slide edge by design --
+     Google Slides itself clips content to the slide boundary, so this frame
+     must too. */
+  .thesis-board:has(.deck-frame){
+    height:auto;
+  }
+  .thesis-board .deck-frame{
+    position:relative;
+    width:min(95.01vw, calc(75.34vh * 16 / 9));
+    max-width:min(95.01vw, calc(75.34vh * 16 / 9));
+    aspect-ratio:1.777778;
+    overflow:hidden;
+  }
+  .thesis-board .deck-frame img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+  }
+  .thesis-board .deck-frame video.deck-media{
+    position:absolute;
+    object-fit:cover;
+    background:#000;
+  }
+  /* small caption/label patches that sit ON TOP of a video overlay, matching the
+     deck's own z-order where a text label is drawn after (in front of) its GIF --
+     without this, the video would otherwise paint over and hide that label once
+     the gif's own background goes non-black. Cropped directly from the pristine
+     slide render, so they always show exactly what the deck shows. */
+  .thesis-board .deck-frame img.deck-caption{
+    position:absolute;
+    display:block;
+    pointer-events:none;
+  }
+  /* breathing room at the two section joins the gap removal above would
+     otherwise close flush: hero -> first deck slide, last deck slide -> first
+     residential spread. Same 6vh figure used on group.html. */
+  #gaudiFirst{ margin-top:6vh; }
+  #gaudiLast{ margin-bottom:6vh; }
 </style>
 </head>
 <body>
@@ -143,6 +225,174 @@
     <img src="images/misc-hero.jpg" alt="Miscellaneous — architecture portfolio">
     <h1 class="hero-title">Miscellaneous</h1>
     <div class="thesis-hero-fade"></div>
+  </section>
+
+  <section class="thesis-board" id="gaudiFirst">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-1.jpg" width="2600" height="1463" alt="After Gaudí — title slide — From Computation to Composition, deep-diving into Gaudí’s algorithmic legacy (IaaC podium project)">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-2.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — CONTENT">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-3.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — THE SITE">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-4.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — LANDMARKS">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-5.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — aerial site view of the podium location in Barcelona">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-6.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — SITE ANALYSIS">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-7.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — CONTEXT">
+      <video class="deck-media" style="left:20.9911%;top:8.5866%;width:58.0176%;height:86.1568%;" src="images/misc-gaudi-7-1.mp4" poster="images/misc-gaudi-7-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-8.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — PODIUM">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-9.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — CONCEPT">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-10.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — DESIGN ITERATIONS">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-11.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — COLUMN LOGIC, board 1">
+      <video class="deck-media" style="left:50%;top:4.5762%;width:43.9083%;height:90.8477%;" src="images/misc-gaudi-11-1.mp4" poster="images/misc-gaudi-11-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-12.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — COLUMN CATALOGUE">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-13.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — COLUMN LOGIC, board 2">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-14.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — COLUMN LOGIC, board 3">
+      <video class="deck-media" style="left:56.0876%;top:-4.2719%;width:60.2644%;height:104.2719%;" src="images/misc-gaudi-14-1.mp4" poster="images/misc-gaudi-14-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+      <video class="deck-media" style="left:47.4059%;top:50.2795%;width:20.7382%;height:41.1101%;" src="images/misc-gaudi-14-2.mp4" poster="images/misc-gaudi-14-2.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+      <img class="deck-caption" style="left:50.4375%;top:92.0556%;width:16.375%;height:7.1111%;" src="images/misc-gaudi-14-cap-topview.png" alt="" aria-hidden="true">
+      <img class="deck-caption" style="left:74.0625%;top:90.7222%;width:25.9375%;height:9.2778%;" src="images/misc-gaudi-14-cap-extcol.png" alt="" aria-hidden="true">
+      <img class="deck-caption" style="left:47.25%;top:44.2778%;width:22.0938%;height:8.3333%;" src="images/misc-gaudi-14-cap-crosssec.png" alt="" aria-hidden="true">
+      <img class="deck-caption" style="left:49.1875%;top:19.9444%;width:8.4063%;height:4.5556%;" src="images/misc-gaudi-14-cap-1600mm.png" alt="" aria-hidden="true">
+      <img class="deck-caption" style="left:58.75%;top:19.9444%;width:8.375%;height:4.5556%;" src="images/misc-gaudi-14-cap-3200mm.png" alt="" aria-hidden="true">
+      <img class="deck-caption" style="left:49.1875%;top:37.9444%;width:8.4063%;height:4.5%;" src="images/misc-gaudi-14-cap-4800mm.png" alt="" aria-hidden="true">
+      <img class="deck-caption" style="left:59.0938%;top:37.9444%;width:8.375%;height:4.5%;" src="images/misc-gaudi-14-cap-5400mm.png" alt="" aria-hidden="true">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-15.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — CEILING DESIGN DEVELOPMENT">
+      <video class="deck-media" style="left:56.13%;top:0%;width:42.5391%;height:100%;" src="images/misc-gaudi-15-1.mp4" poster="images/misc-gaudi-15-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-16.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — CEILING LOGIC">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-17.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — CEILING &amp; COLUMN CONNECTION">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-18.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — FLOOR LOGIC">
+      <video class="deck-media" style="left:57.4199%;top:3.7042%;width:37.2424%;height:92.5917%;" src="images/misc-gaudi-18-1.mp4" poster="images/misc-gaudi-18-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-19.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — PLAN &amp; SECTION">
+      <video class="deck-media" style="left:43.4793%;top:6.7216%;width:51.7424%;height:81.8319%;" src="images/misc-gaudi-19-1.mp4" poster="images/misc-gaudi-19-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-20.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — SECTION">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-21.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — MATERIAL CATALOGUE, board 1">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-22.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — MATERIAL CATALOGUE, board 2">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-23.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — MATERIAL CATALOGUE, board 3">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-24.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — rendered view of the tree-column canopy interior, board 1">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-25.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — rendered view of the tree-column canopy interior, board 2">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-26.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — rendered view of the tree-column canopy from below, board 3">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-27.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — rendered view of the podium courtyard, board 1">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-28.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — rendered view of the podium courtyard, board 2">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-29.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — FABRICATION PROCESS">
+      <video class="deck-media" style="left:8.7024%;top:19.2899%;width:37.2459%;height:64.9373%;" src="images/misc-gaudi-29-1.mp4" poster="images/misc-gaudi-29-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+      <video class="deck-media" style="left:48.6627%;top:19.2901%;width:37.2474%;height:64.9344%;" src="images/misc-gaudi-29-2.mp4" poster="images/misc-gaudi-29-2.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
+  </section>
+  <section class="thesis-board" id="gaudiLast">
+    <div class="deck-frame">
+      <img src="images/misc-gaudi-30.jpg" width="2600" height="1463" loading="lazy" alt="After Gaudí — FINAL MODEL">
+      <video class="deck-media" style="left:4.2637%;top:18.9613%;width:37.2474%;height:64.9344%;" src="images/misc-gaudi-30-1.mp4" poster="images/misc-gaudi-30-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
   </section>
 
   <section class="residential-spread">
@@ -175,6 +425,27 @@
     onScroll();
   }
   setupHeroFade(document.getElementById('miscHero'));
+
+  // After Gaudi slide videos: play while a clip is scrolled into view, pause
+  // when it isn't, and leave the poster frame showing for reduced-motion users
+  // or whenever play() is blocked.
+  (function setupDeckMedia(){
+    const clips = document.querySelectorAll('video.deck-media');
+    if(!clips.length) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const v = entry.target;
+        if(entry.isIntersecting){
+          const p = v.play();
+          if(p && p.catch) p.catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    clips.forEach((v) => io.observe(v));
+  })();
 
   // came from the homepage: step back in history so the browser restores the exact
   // scroll position; otherwise the link's href lands on the project grid
