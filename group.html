@@ -205,12 +205,19 @@
     object-fit:cover;
     background:#000;
   }
-  /* breathing room at the two section joins the gap removal above would
-     otherwise close flush: hero -> first Rammed slide, last Rammed slide ->
-     first L.O.O.P. board. Chosen small and viewport-relative, well under the
-     letterboxing L.O.O.P. boards already show themselves at narrower shapes. */
-  #rammedFirst{ margin-top:6vh; }
-  #rammedLast{ margin-bottom:6vh; }
+  /* breathing room at the section joins the gap removal above would otherwise
+     close flush: hero -> first Rammed slide, last Rammed slide -> first
+     Robotics slide, last Robotics slide -> first L.O.O.P. board. Generalised
+     from the original #rammedFirst/#rammedLast ids into reusable classes so
+     any slide deck's boundary can opt in the same way. Chosen small and
+     viewport-relative, well under the letterboxing L.O.O.P. boards already
+     show themselves at narrower shapes. Only one side of each boundary needs
+     the margin (adjacent block margins collapse to the max, not the sum), so
+     e.g. Rammed's own last-slide margin-bottom already creates the full gap
+     to whatever deck follows it -- that next deck's first slide doesn't also
+     need margin-top. */
+  .slide-deck-first{ margin-top:6vh; }
+  .slide-deck-last{ margin-bottom:6vh; }
 </style>
 </head>
 <body>
@@ -223,7 +230,7 @@
     <div class="thesis-hero-fade"></div>
   </section>
 
-  <section class="thesis-board" id="rammedFirst">
+  <section class="thesis-board slide-deck-first" id="rammedFirst">
     <div class="rammed-frame">
       <img src="images/group-rammed-1.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — cover">
     </div>
@@ -425,9 +432,127 @@
       <img src="images/group-rammed-40.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — final render, view 1">
     </div>
   </section>
-  <section class="thesis-board" id="rammedLast">
+  <section class="thesis-board slide-deck-last" id="rammedLast">
     <div class="rammed-frame">
       <img src="images/group-rammed-41.jpg" width="2600" height="1463" loading="lazy" alt="Rammed Chair — final render, view 2">
+    </div>
+  </section>
+
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-1.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — FLOW FORM: Introduction to Robotic Fabrication, cover">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-2.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — perforated design failure: overhangs and thin walls sagging in wet clay extrusion">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-3.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — concept diagram">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-4.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — strategy to curve the module">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-5.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — iteration 1 studies">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-6.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — tested designs">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-7.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — final design">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-8.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — Module 1 details and renders">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-9.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — loads: wind load and thermal heat stress">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-10.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — robotic fabrication toolpath simulation">
+      <video class="rammed-media" style="left:1.2500%;top:22.7496%;width:44.2661%;height:74.1616%;" src="images/group-robotics-10-1.mp4" poster="images/group-robotics-10-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-11.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — printing speed and robotic adaptation to design">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-12.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — formwork, assembly and material used, with fabrication clip">
+      <video class="rammed-media" style="left:61.3597%;top:18.1671%;width:35.9566%;height:50.7388%;" src="images/group-robotics-12-1.mp4" poster="images/group-robotics-12-1.jpg" muted playsinline loop preload="none" aria-hidden="true"></video>
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-13.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — robotic fabrication in progress">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-14.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — applications">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-15.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — applications, continued">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-16.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — further steps: curvature, texture, load testing, interlocking, scalability">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-17.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — credits">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-18.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — Step 3: robotic setup and file calibration">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-19.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — reference imagery, board 1">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-20.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — reference imagery, board 2">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-21.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — reference imagery, board 3">
+    </div>
+  </section>
+  <section class="thesis-board">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-22.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — reference imagery, board 4">
+    </div>
+  </section>
+  <section class="thesis-board slide-deck-last">
+    <div class="rammed-frame">
+      <img src="images/group-robotics-23.jpg" width="2600" height="1463" loading="lazy" alt="Intro to Robotics — thank you">
     </div>
   </section>
 
