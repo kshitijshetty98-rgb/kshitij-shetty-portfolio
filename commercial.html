@@ -9,6 +9,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="canonical" href="https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/commercial.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Commercial — Ar. Kshitij Shetty">
 <meta property="og:description" content="Commercial architecture projects by Ar. Kshitij Shetty — IT parks, mixed-use towers and headquarters design.">
@@ -36,19 +37,38 @@
 
   .back-link{
     position:fixed;
-    top:24px;
-    left:24px;
-    z-index:10;
+    top:16px;
+    left:16px;
+    z-index:20;
     display:inline-flex;
     align-items:center;
     gap:8px;
+    min-height:44px;
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(255,255,255,.82);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+    box-shadow:0 2px 14px rgba(0,0,0,.14);
     font-size:.85rem;
     letter-spacing:.04em;
-    color:#f4f3ef;
+    color:#141414;
     text-decoration:none;
-    mix-blend-mode:difference;
+    transition:opacity .35s ease, transform .35s ease;
   }
-  .back-link:hover{ opacity:.75; }
+  .back-link:hover{ background:rgba(255,255,255,.95); }
+  .back-link.is-hidden{
+    opacity:0;
+    transform:translateY(-10px);
+    pointer-events:none;
+  }
+  .back-link:focus-visible{
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
+    outline:2px solid #141414;
+    outline-offset:2px;
+  }
 
   .thesis-hero{
     position:relative;
@@ -74,12 +94,14 @@
     pointer-events:none;
   }
 
-  #commercialHero{ background:#faa945; }
-  /* on viewports wider (relative to height) than the artwork's own ratio, object-fit:contain
-     letterboxes left/right instead of top/bottom — keep that margin clean white, not orange */
-  @media (min-aspect-ratio: 1723/1000){
-    #commercialHero{ background:#ffffff; }
-  }
+  /* the artwork's own canvas is orange on the left, but fades to a baked-in white
+     panel on its right edge (confirmed by sampling the file directly) — so when
+     object-fit:contain pillarboxes on wide/short viewports, a single uniform
+     background-colour can only ever match ONE side. A hard-stop split exactly at
+     the midpoint always lands inside the (centred) image's own content, never in
+     either pillarbox bar, so each bar reliably matches the real edge beside it at
+     any aspect ratio, with no need for an aspect-ratio threshold at all. */
+  #commercialHero{ background:linear-gradient(to right, #faa945 50%, #ffffff 50%); }
 
   .hero-title{
     position:absolute;
@@ -128,11 +150,69 @@
       display:block;
     }
   }
+
+  .sr-only{
+    position:absolute;
+    width:1px; height:1px;
+    padding:0; margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+
+  .page-end-nav{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+    max-width:1100px;
+    margin:0 auto;
+    padding:9vh 6vw 5vh;
+  }
+  .page-end-link{
+    display:inline-flex;
+    flex-direction:column;
+    gap:6px;
+    color:var(--text);
+    text-decoration:none;
+  }
+  .page-end-link.next{ margin-left:auto; text-align:right; }
+  .page-end-eyebrow{
+    font-size:.75rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    opacity:.5;
+  }
+  .page-end-name{
+    font-size:clamp(1.2rem, 2.6vw, 1.7rem);
+    font-weight:500;
+    transition:opacity .3s ease;
+  }
+  .page-end-link:hover .page-end-name{ opacity:.6; }
+
+  .site-footer{
+    text-align:center;
+    padding:4vh 6vw 9vh;
+  }
+  .site-footer p{ margin:0 0 8px; }
+  .site-footer-name{ font-size:1rem; font-weight:500; }
+  .site-footer-links{ font-size:.85rem; opacity:.75; }
+  .site-footer-links a{ color:var(--text); text-decoration:none; border-bottom:1px solid transparent; }
+  .site-footer-links a:hover{ border-color:var(--text); }
+  .site-footer-links .sep{ margin:0 8px; opacity:.5; }
+  .site-footer-copyright{ font-size:.75rem; opacity:.5; margin-bottom:0; }
+
+  @media (prefers-reduced-motion: reduce){
+    .back-link{ transition:none; }
+  }
 </style>
 </head>
 <body>
 
   <a class="back-link" href="index.html#indexSection">← Back</a>
+
+  <main>
 
   <section class="thesis-hero" id="commercialHero">
     <img src="images/commercial-hero.jpg" alt="Commercial — architecture portfolio">
@@ -141,21 +221,46 @@
   </section>
 
   <section class="thesis-board">
-    <img src="images/commercial-1.jpg" loading="lazy" alt="Commercial project — Indore headquarters, staggered blocks concept">
+    <img src="images/commercial-1.jpg" width="2600" height="1839" alt="Commercial project — Indore headquarters, staggered blocks concept">
   </section>
   <section class="thesis-board">
-    <img src="images/commercial-2.jpg" loading="lazy" alt="Commercial project — site landscaping and courtyard concept">
+    <img src="images/commercial-2.jpg" width="2600" height="1839" loading="lazy" alt="Commercial project — site landscaping and courtyard concept">
   </section>
   <section class="thesis-board">
-    <img src="images/commercial-3.jpg" loading="lazy" alt="Commercial project — tech park interactive spaces">
+    <img src="images/commercial-3.jpg" width="2600" height="1839" loading="lazy" alt="Commercial project — tech park interactive spaces">
   </section>
   <section class="thesis-board">
-    <img src="images/commercial-4.jpg" loading="lazy" alt="Commercial project — Agile Baner mixed-use tower">
+    <img src="images/commercial-4.jpg" width="2600" height="1839" loading="lazy" alt="Commercial project — Agile Baner mixed-use tower">
   </section>
 
+  <nav class="page-end-nav" aria-label="More projects">
+    <a class="page-end-link prev" href="thesis.html">
+      <span class="page-end-eyebrow">← Previous</span>
+      <span class="page-end-name">Thesis</span>
+    </a>
+    <a class="page-end-link next" href="residential.html">
+      <span class="page-end-eyebrow">Next project →</span>
+      <span class="page-end-name">Residential</span>
+    </a>
+  </nav>
+
+  </main>
+
+  <footer class="site-footer">
+    <p class="site-footer-name">Ar. Kshitij Shetty</p>
+    <p class="site-footer-links">
+      <a href="mailto:kshitijshetty98@gmail.com">kshitijshetty98@gmail.com</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="index.html#indexSection">Back to index</a>
+    </p>
+    <p class="site-footer-copyright">© 2026 Kshitij Shetty</p>
+  </footer>
+
 <script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function setupHeroFade(heroEl){
-    if(!heroEl) return;
+    if(!heroEl || prefersReducedMotion) return;
     function onScroll(){
       const vh = window.innerHeight;
       const start = heroEl.offsetTop;
@@ -166,6 +271,23 @@
     onScroll();
   }
   setupHeroFade(document.getElementById('commercialHero'));
+
+  // back pill: hide while scrolling down, reveal on scroll up or near the top
+  (function setupBackLinkAutohide(){
+    const link = document.querySelector('.back-link');
+    if(!link) return;
+    let lastY = window.scrollY;
+    function onBackScroll(){
+      const y = window.scrollY;
+      if(y < 80 || y < lastY){
+        link.classList.remove('is-hidden');
+      } else {
+        link.classList.add('is-hidden');
+      }
+      lastY = y;
+    }
+    window.addEventListener('scroll', onBackScroll, { passive:true });
+  })();
 
   // came from the homepage: step back in history so the browser restores the exact
   // scroll position; otherwise the link's href lands on the project grid

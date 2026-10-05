@@ -9,6 +9,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="canonical" href="https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/misc.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Miscellaneous — Ar. Kshitij Shetty">
 <meta property="og:description" content="Miscellaneous work by Ar. Kshitij Shetty — an interior photoshoot, artwork, a design competition entry, and extracurricular highlights.">
@@ -36,19 +37,38 @@
 
   .back-link{
     position:fixed;
-    top:24px;
-    left:24px;
-    z-index:10;
+    top:16px;
+    left:16px;
+    z-index:20;
     display:inline-flex;
     align-items:center;
     gap:8px;
+    min-height:44px;
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(255,255,255,.82);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+    box-shadow:0 2px 14px rgba(0,0,0,.14);
     font-size:.85rem;
     letter-spacing:.04em;
-    color:#f4f3ef;
+    color:#141414;
     text-decoration:none;
-    mix-blend-mode:difference;
+    transition:opacity .35s ease, transform .35s ease;
   }
-  .back-link:hover{ opacity:.75; }
+  .back-link:hover{ background:rgba(255,255,255,.95); }
+  .back-link.is-hidden{
+    opacity:0;
+    transform:translateY(-10px);
+    pointer-events:none;
+  }
+  .back-link:focus-visible{
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
+    outline:2px solid #141414;
+    outline-offset:2px;
+  }
 
   .thesis-hero{
     position:relative;
@@ -74,12 +94,14 @@
     pointer-events:none;
   }
 
-  #miscHero{ background:#5a5a5a; }
-  /* on viewports wider (relative to height) than the artwork's own ratio, object-fit:contain
-     letterboxes left/right instead of top/bottom — keep that margin clean white, not gray */
-  @media (min-aspect-ratio: 1749/1000){
-    #miscHero{ background:#ffffff; }
-  }
+  /* the artwork's own canvas is grey on the left, but fades to a baked-in white
+     panel on its right edge (confirmed by sampling the file directly) — so when
+     object-fit:contain pillarboxes on wide/short viewports, a single uniform
+     background-colour can only ever match ONE side. A hard-stop split exactly at
+     the midpoint always lands inside the (centred) image's own content, never in
+     either pillarbox bar, so each bar reliably matches the real edge beside it at
+     any aspect ratio, with no need for an aspect-ratio threshold at all. */
+  #miscHero{ background:linear-gradient(to right, #5a5a5a 50%, #ffffff 50%); }
 
   .hero-title{
     position:absolute;
@@ -215,11 +237,69 @@
      residential spread. Same 6vh figure used on group.html. */
   #gaudiFirst{ margin-top:6vh; }
   #gaudiLast{ margin-bottom:6vh; }
+
+  .sr-only{
+    position:absolute;
+    width:1px; height:1px;
+    padding:0; margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+
+  .page-end-nav{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+    max-width:1100px;
+    margin:0 auto;
+    padding:9vh 6vw 5vh;
+  }
+  .page-end-link{
+    display:inline-flex;
+    flex-direction:column;
+    gap:6px;
+    color:var(--text);
+    text-decoration:none;
+  }
+  .page-end-link.next{ margin-left:auto; text-align:right; }
+  .page-end-eyebrow{
+    font-size:.75rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    opacity:.5;
+  }
+  .page-end-name{
+    font-size:clamp(1.2rem, 2.6vw, 1.7rem);
+    font-weight:500;
+    transition:opacity .3s ease;
+  }
+  .page-end-link:hover .page-end-name{ opacity:.6; }
+
+  .site-footer{
+    text-align:center;
+    padding:4vh 6vw 9vh;
+  }
+  .site-footer p{ margin:0 0 8px; }
+  .site-footer-name{ font-size:1rem; font-weight:500; }
+  .site-footer-links{ font-size:.85rem; opacity:.75; }
+  .site-footer-links a{ color:var(--text); text-decoration:none; border-bottom:1px solid transparent; }
+  .site-footer-links a:hover{ border-color:var(--text); }
+  .site-footer-links .sep{ margin:0 8px; opacity:.5; }
+  .site-footer-copyright{ font-size:.75rem; opacity:.5; margin-bottom:0; }
+
+  @media (prefers-reduced-motion: reduce){
+    .back-link{ transition:none; }
+  }
 </style>
 </head>
 <body>
 
   <a class="back-link" href="index.html#indexSection">← Back</a>
+
+  <main>
 
   <section class="thesis-hero" id="miscHero">
     <img src="images/misc-hero.jpg" alt="Miscellaneous — architecture portfolio">
@@ -396,25 +476,50 @@
   </section>
 
   <section class="residential-spread">
-    <img src="images/misc-1.jpg" loading="lazy" alt="Interior photoshoot, Mumbai 2200 sqft apartment, board 1">
-    <img src="images/misc-2.jpg" loading="lazy" alt="Interior photoshoot, Mumbai 2200 sqft apartment, board 2">
+    <img src="images/misc-1.jpg" width="1054" height="1492" loading="lazy" alt="Interior photoshoot, Mumbai 2200 sqft apartment, board 1">
+    <img src="images/misc-2.jpg" width="1054" height="1492" loading="lazy" alt="Interior photoshoot, Mumbai 2200 sqft apartment, board 2">
   </section>
   <section class="residential-spread">
-    <img src="images/misc-3.jpg" loading="lazy" alt="Interior photoshoot, Mumbai 2200 sqft apartment, board 3">
-    <img src="images/misc-4.jpg" loading="lazy" alt="Interior photoshoot, Mumbai 2200 sqft apartment, board 4">
+    <img src="images/misc-3.jpg" width="1054" height="1492" loading="lazy" alt="Interior photoshoot, Mumbai 2200 sqft apartment, board 3">
+    <img src="images/misc-4.jpg" width="1054" height="1492" loading="lazy" alt="Interior photoshoot, Mumbai 2200 sqft apartment, board 4">
   </section>
   <section class="residential-spread">
-    <img src="images/misc-5.jpg" loading="lazy" alt="Artwork — illustrations on social and pandemic themes">
-    <img src="images/misc-6.jpg" loading="lazy" alt="Design competition entry — waste station at Mahuli Fort">
+    <img src="images/misc-5.jpg" width="1800" height="2547" loading="lazy" alt="Artwork — illustrations on social and pandemic themes">
+    <img src="images/misc-6.jpg" width="1800" height="2547" loading="lazy" alt="Design competition entry — waste station at Mahuli Fort">
   </section>
   <section class="residential-spread">
-    <img src="images/misc-7.jpg" loading="lazy" alt="Extracurriculars — football and cricket team captaincy, community outreach">
-    <img src="images/misc-8.jpg" loading="lazy" alt="Community interaction space design and build, before and after">
+    <img src="images/misc-7.jpg" width="1800" height="2547" loading="lazy" alt="Extracurriculars — football and cricket team captaincy, community outreach">
+    <img src="images/misc-8.jpg" width="1800" height="2547" loading="lazy" alt="Community interaction space design and build, before and after">
   </section>
 
+  <nav class="page-end-nav" aria-label="More projects">
+    <a class="page-end-link prev" href="group.html">
+      <span class="page-end-eyebrow">← Previous</span>
+      <span class="page-end-name">Group Projects</span>
+    </a>
+    <a class="page-end-link next" href="thesis.html">
+      <span class="page-end-eyebrow">Next project →</span>
+      <span class="page-end-name">Thesis</span>
+    </a>
+  </nav>
+
+  </main>
+
+  <footer class="site-footer">
+    <p class="site-footer-name">Ar. Kshitij Shetty</p>
+    <p class="site-footer-links">
+      <a href="mailto:kshitijshetty98@gmail.com">kshitijshetty98@gmail.com</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="index.html#indexSection">Back to index</a>
+    </p>
+    <p class="site-footer-copyright">© 2026 Kshitij Shetty</p>
+  </footer>
+
 <script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function setupHeroFade(heroEl){
-    if(!heroEl) return;
+    if(!heroEl || prefersReducedMotion) return;
     function onScroll(){
       const vh = window.innerHeight;
       const start = heroEl.offsetTop;
@@ -425,6 +530,23 @@
     onScroll();
   }
   setupHeroFade(document.getElementById('miscHero'));
+
+  // back pill: hide while scrolling down, reveal on scroll up or near the top
+  (function setupBackLinkAutohide(){
+    const link = document.querySelector('.back-link');
+    if(!link) return;
+    let lastY = window.scrollY;
+    function onBackScroll(){
+      const y = window.scrollY;
+      if(y < 80 || y < lastY){
+        link.classList.remove('is-hidden');
+      } else {
+        link.classList.add('is-hidden');
+      }
+      lastY = y;
+    }
+    window.addEventListener('scroll', onBackScroll, { passive:true });
+  })();
 
   // After Gaudi slide videos: play while a clip is scrolled into view, pause
   // when it isn't, and leave the poster frame showing for reduced-motion users
