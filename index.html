@@ -5,19 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#141414">
 <title>Ar. Kshitij Shetty — Architect</title>
-<meta name="description" content="Architecture portfolio of Ar. Kshitij Shetty — thesis, commercial, residential, freelance and group projects.">
+<meta name="description" content="Architecture portfolio of Ar. Kshitij Shetty — thesis, commercial, residential, freelance, group and miscellaneous projects.">
+<link rel="canonical" href="https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ar. Kshitij Shetty — Architect">
-<meta property="og:description" content="Architecture portfolio of Ar. Kshitij Shetty — thesis, commercial, residential, freelance and group projects.">
+<meta property="og:description" content="Architecture portfolio of Ar. Kshitij Shetty — thesis, commercial, residential, freelance, group and miscellaneous projects.">
 <meta property="og:image" content="https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/images/og-cover.jpg">
 <meta property="og:url" content="https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ar. Kshitij Shetty — Architect">
-<meta name="twitter:description" content="Architecture portfolio of Ar. Kshitij Shetty — thesis, commercial, residential, freelance and group projects.">
+<meta name="twitter:description" content="Architecture portfolio of Ar. Kshitij Shetty — thesis, commercial, residential, freelance, group and miscellaneous projects.">
 <meta name="twitter:image" content="https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/images/og-cover.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Kshitij Shetty",
+  "jobTitle": "Architect",
+  "url": "https://kshitijshetty98-rgb.github.io/kshitij-shetty-portfolio/",
+  "email": "mailto:kshitijshetty98@gmail.com",
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Institute for Advanced Architecture of Catalonia (IAAC), Barcelona" },
+    { "@type": "CollegeOrUniversity", "name": "Bharati Vidyapeeth College of Architecture, Mumbai" }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -62,12 +77,8 @@
     animation:fadeInImage 3.6s ease-out forwards;
   }
 
-  .hero-mobile{ display:none; }
-
   @media (max-width:768px){
-    .hero-desktop{ display:none; }
-    .hero-mobile{
-      display:block;
+    .hero-desktop{
       object-position:center 18%; /* keep faces/paper-cutouts in frame on tall phone screens */
     }
   }
@@ -99,8 +110,19 @@
     color:#fff;
   }
 
+  /* darkens the photo behind the hero text just enough to lift contrast, without
+     flattening the image itself — strongest across the text block, tapering off below it */
+  .welcome-text::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to bottom, rgba(0,0,0,.46) 0%, rgba(0,0,0,.64) 20%, rgba(0,0,0,.58) 42%, rgba(0,0,0,.5) 55%, rgba(0,0,0,.22) 70%, rgba(0,0,0,0) 86%);
+    pointer-events:none;
+  }
+
   .text-block{
     position:relative;
+    z-index:1;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -126,6 +148,7 @@
     font-weight:400;
     letter-spacing:.02em;
     white-space:nowrap;
+    text-shadow:0 1px 2px rgba(0,0,0,.85), 0 2px 8px rgba(0,0,0,.65), 0 4px 20px rgba(0,0,0,.45);
   }
 
   .name-line{
@@ -141,6 +164,24 @@
     line-height:1.05;
     letter-spacing:-.01em;
     white-space:nowrap;
+    text-shadow:0 2px 3px rgba(0,0,0,.85), 0 3px 10px rgba(0,0,0,.65), 0 6px 32px rgba(0,0,0,.45);
+  }
+
+  .tagline-line{
+    position:relative;
+    opacity:0;
+    transform:translateY(50px);
+    animation:slideUp 1.8s cubic-bezier(.16,1,.3,1) 2.6s forwards;
+    margin-top:clamp(10px, 1.6vh, 20px);
+  }
+  .tagline-line span{
+    display:block;
+    font-size:clamp(1rem, 2.2vw, 1.5rem);
+    font-weight:400;
+    font-style:italic;
+    letter-spacing:.01em;
+    opacity:.94;
+    text-shadow:0 1px 2px rgba(0,0,0,.85), 0 2px 8px rgba(0,0,0,.65), 0 4px 20px rgba(0,0,0,.45);
   }
 
   @keyframes slideUp{
@@ -151,7 +192,19 @@
   @media (max-width:640px){
     .name-line span{ font-size:clamp(2.6rem, 13vw, 4.6rem); white-space:normal; }
     .eyebrow-line span{ font-size:1.15rem; white-space:normal; }
+    .tagline-line span{ font-size:.92rem; white-space:normal; }
     .text-block{ padding:24px 28px; }
+  }
+
+  /* placed after the rules above (same specificity) so it wins the cascade and actually
+     overrides them, rather than being overridden by the later, unqualified rules */
+  @media (prefers-reduced-motion: reduce){
+    .welcome-frame img{ animation:none; opacity:1; }
+    .eyebrow-line, .name-line, .tagline-line{
+      animation:none;
+      opacity:1;
+      transform:none;
+    }
   }
 
   /* ---------- TIMELINE (pinned horizontal pan) ---------- */
@@ -163,7 +216,7 @@
 
   .timeline-section{
     position:relative;
-    height:400vh;
+    height:250vh;
     background:#fff;
   }
   .timeline-sticky{
@@ -323,9 +376,18 @@
   .index-col{
     flex:1;
     position:relative;
+    display:block;
     background:var(--col-color);
     overflow:hidden;
     cursor:pointer;
+    text-decoration:none;
+    color:inherit;
+  }
+  .index-col:focus-visible{
+    /* a light outline inset from a dark halo reads clearly over any tile artwork */
+    outline:3px solid #fff;
+    outline-offset:-6px;
+    box-shadow:0 0 0 3px rgba(0,0,0,.55) inset;
   }
   .index-col img{
     position:absolute;
@@ -383,6 +445,36 @@
     clip:rect(0,0,0,0);
     white-space:nowrap;
     border:0;
+  }
+
+  /* touch: shown briefly after the first tap on a video tile, to explain the second tap.
+     max-width/wrap keeps it inside the tile's own box on narrow mobile columns — the
+     has-video tiles' clip-path only clips flush on the right/bottom, not the left, so an
+     oversized nowrap pill here would spill past the viewport edge instead of just the tile */
+  .tap-hint{
+    position:absolute;
+    left:50%;
+    bottom:6%;
+    transform:translateX(-50%);
+    z-index:2;
+    max-width:92%;
+    background:rgba(20,20,20,.74);
+    color:#fff;
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:clamp(.6rem, 2.2vw, .82rem);
+    letter-spacing:.01em;
+    line-height:1.25;
+    text-align:center;
+    padding:6px 12px;
+    border-radius:14px;
+    white-space:normal;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s ease;
+  }
+  .tap-hint.is-visible{
+    opacity:1;
   }
 
   @media (max-width:900px){
@@ -483,10 +575,13 @@
 </head>
 <body>
 
+  <main>
   <section class="welcome" id="welcome">
     <div class="welcome-frame">
-      <img class="hero-desktop" src="images/hero-welcome.webp" alt="Kshitij Shetty working with a community school on a participatory design project">
-      <img class="hero-mobile" src="images/hero-mobile.jpg" alt="Kshitij Shetty working with a community school on a participatory design project">
+      <picture>
+        <source media="(max-width:768px)" srcset="images/home-hero-mobile.webp">
+        <img class="hero-desktop" src="images/hero-welcome.webp" alt="Kshitij Shetty working with a community school on a participatory design project" fetchpriority="high">
+      </picture>
       <div class="welcome-fade"></div>
       <div class="welcome-text">
         <div class="text-block">
@@ -494,8 +589,11 @@
             <div class="bar"></div>
             <span>Professional Portfolio</span>
           </div>
-          <div class="name-line">
-            <span>Ar.Kshitij Shetty</span>
+          <h1 class="name-line">
+            <span>Ar. Kshitij Shetty</span>
+          </h1>
+          <div class="tagline-line">
+            <span>Architect · Computational Design &amp; Fabrication · MAA, IAAC Barcelona</span>
           </div>
         </div>
       </div>
@@ -629,14 +727,15 @@
   <section class="timeline-section" id="timelineSection">
     <div class="timeline-sticky">
       <div class="timeline-track" id="timelineTrack">
-        <video src="images/timeline.mp4" id="timelineVideo" width="2560" height="1010" muted playsinline preload="auto" aria-label="Career timeline — Ar. Kshitij Shetty, 2016 to 2026"></video>
+        <video src="images/timeline.mp4" id="timelineVideo" width="2560" height="1010" muted playsinline preload="none" poster="images/home-timeline-poster.jpg" aria-label="Career timeline — Ar. Kshitij Shetty, 2016 to 2026"></video>
       </div>
     </div>
   </section>
 
   <section class="index-section" id="indexSection"></section>
+  </main>
 
-  <section class="contact" id="contact">
+  <footer class="contact" id="contact">
     <img class="contact-bg" src="images/contact-bg.jpg" alt="" loading="lazy">
     <div class="contact-scrim"></div>
     <div class="contact-fade-top"></div>
@@ -647,7 +746,7 @@
       </div>
       <a class="contact-email" href="mailto:kshitijshetty98@gmail.com">kshitijshetty98@gmail.com</a>
     </div>
-  </section>
+  </footer>
 
 <script>
   const indexCategories = [
@@ -660,33 +759,33 @@
     {
       key:'commercial', base:'images/idx-commercial-base.jpg', video:'images/idx-commercial.mp4', poster:'images/idx-commercial-poster.jpg',
       title:'Commercial',
-      desc:'Projects include an I.T park with an expansive podium landscape and also project with small pockets of green spaces created in space constraints.',
+      desc:'Projects include an I.T park with an expansive podium landscape and also a project with small pockets of green spaces created in space constraints.',
       link:'commercial.html'
     },
     {
       key:'residential', base:'images/idx-residential-base.jpg', video:'images/idx-residential.mp4', poster:'images/idx-residential-poster.jpg',
       title:'Residential',
-      desc:'Projects include 2 highrise residential projects. One of which is a mixed used stucture.',
+      desc:'Projects include 2 highrise residential projects. One of which is a mixed-use structure.',
       link:'residential.html'
     },
     {
       key:'freelance', base:'images/idx-freelance-base.jpg', video:'images/idx-freelance.mp4', poster:'images/idx-freelance-poster.jpg',
       frame:{ py:154 },
       title:'Freelance',
-      desc:'Projects include villa and club house design and a completed interior project.',
+      desc:'Projects include a villa and club house design, and a completed interior project.',
       link:'freelance.html'
     },
     {
       key:'group', base:'images/idx-group-base.jpg', video:'images/idx-group.mp4', poster:'images/idx-group-poster.jpg',
       title:'Group Projects',
-      desc:'Nari gandhi citation wining project included also doccumentation of Nepal after the earthquake and Varanasi Ghats.',
+      desc:'Nari Gandhi Citation-winning project, which also included documentation of Nepal after the earthquake, and the Varanasi Ghats.',
       link:'group.html'
     },
     {
       key:'misc', base:'images/idx-misc-base.jpg', video:'images/idx-misc.mp4', poster:'images/idx-misc-poster.jpg',
       frame:{ cw:774, px:71, py:154, pw:703 },
       title:'Miscellaneous',
-      desc:'Few of my achivements to highlight other aspects of myself to date.',
+      desc:'A few of my achievements, highlighting other aspects of myself to date.',
       link:'misc.html'
     }
   ];
@@ -694,49 +793,125 @@
   const indexSection = document.getElementById('indexSection');
   const canHover = window.matchMedia('(hover: hover)').matches;
 
+  // a tile video starts at preload="none" (see below) and is only told to actually
+  // start buffering the first time it's needed — near-viewport, or about to be used —
+  // so the ~8.7MB of tile/timeline video isn't fetched before anyone scrolls to it.
+  // note: deliberately does NOT call video.load() — Chromium fetches the file twice in
+  // full if .load() is called explicitly here, while just flipping the preload hint (while
+  // the element is still in its untouched preload="none" state) reliably fetches it once
+  function upgradePreload(video){
+    if(!video || video.dataset.preloaded) return;
+    video.dataset.preloaded = '1';
+    video.preload = 'auto';
+  }
+
+  function hideTapHint(col){
+    const hint = col.querySelector('.tap-hint');
+    if(!hint) return;
+    clearTimeout(hint._timer);
+    hint.classList.remove('is-visible');
+  }
+
+  function showTapHint(col){
+    const hint = col.querySelector('.tap-hint');
+    if(!hint) return;
+    clearTimeout(hint._timer);
+    hint.classList.add('is-visible');
+    hint._timer = setTimeout(() => hint.classList.remove('is-visible'), 2500);
+  }
+
   function resetActiveTiles(){
     document.querySelectorAll('.index-col.is-active').forEach(el => {
       el.classList.remove('is-active');
       const v = el.querySelector('.idx-video');
       if(v){ v.pause(); v.currentTime = 0; }
+      hideTapHint(el);
     });
   }
 
+  const tileVideos = [];
+
   indexCategories.forEach(cat => {
-    const col = document.createElement('div');
+    // a real link: Tab/Enter, Cmd/Ctrl/middle-click and "open in new tab" all work natively
+    const col = document.createElement('a');
     col.className = cat.video ? 'index-col has-video' : 'index-col';
+    if(cat.link) col.href = cat.link;
     // a tile's video replaces its hover image; its poster is the video's own first frame.
     // frame overrides the default canvas/panel geometry (see .idx-video) for odd-sized exports
     const frameVars = cat.frame ? Object.entries(cat.frame).map(([k, v]) => '--' + k + ':' + v).join(';') : '';
     const reveal = cat.video
-      ? '<video class="idx-video" style="' + frameVars + '" src="' + cat.video + '" poster="' + cat.poster + '" muted playsinline preload="auto" aria-hidden="true"></video>'
+      ? '<video class="idx-video" style="' + frameVars + '" src="' + cat.video + '" poster="' + cat.poster + '" muted playsinline preload="none" aria-hidden="true"></video>'
       : '<img class="idx-hover" src="' + cat.hover + '" alt="" loading="lazy">';
     col.innerHTML =
       '<img class="idx-base" src="' + cat.base + '" alt="" loading="lazy">' +
       reveal +
+      '<span class="tap-hint" aria-hidden="true">Tap again to open →</span>' +
       '<span class="sr-only">' + cat.title + ' — ' + cat.desc + '</span>';
 
     const video = col.querySelector('.idx-video');
-    if(video && canHover){
-      col.addEventListener('mouseenter', () => { video.currentTime = 0; video.play().catch(() => {}); });
-      col.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+    if(video){
+      tileVideos.push(video);
+
+      // begin loading as soon as this tile is actually about to be interacted with
+      col.addEventListener('pointerenter', () => upgradePreload(video), { once:true });
+      col.addEventListener('touchstart', () => upgradePreload(video), { once:true, passive:true });
+
+      if(canHover){
+        col.addEventListener('mouseenter', () => { video.currentTime = 0; video.play().catch(() => {}); });
+        col.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+      }
+
+      // keyboard: focusing a tile previews it, the same as a hover would; losing focus
+      // resets it, unless a touch tap already activated it
+      col.addEventListener('focus', () => {
+        upgradePreload(video);
+        if(col.classList.contains('is-active')) return;
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      });
+      col.addEventListener('blur', () => {
+        if(col.classList.contains('is-active')) return;
+        video.pause();
+        video.currentTime = 0;
+      });
     }
 
-    col.addEventListener('click', () => {
-      // touch screens can't hover: a video tile previews on the first tap and opens on the second
-      if(video && !canHover && !col.classList.contains('is-active')){
+    col.addEventListener('click', (e) => {
+      // modifier/middle clicks must open normally (new tab) and are never intercepted
+      if(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button === 1) return;
+      // a keyboard-activated click (Enter/Space on the focused link) has detail===0 — it
+      // already previewed on focus, so Enter opens it immediately, with no second press;
+      // only a real touch/pointer tap (detail>0) gets the two-tap preview-then-open gate
+      if(video && !canHover && e.detail !== 0 && !col.classList.contains('is-active')){
+        e.preventDefault();
         resetActiveTiles();
         col.classList.add('is-active');
         video.play().catch(() => {});
+        showTapHint(col);
         return;
       }
-      if(cat.link){ window.location.href = cat.link; return; }
-      const wasActive = col.classList.contains('is-active');
-      resetActiveTiles();
-      if(!wasActive) col.classList.add('is-active');
+      if(!cat.link){
+        e.preventDefault();
+        const wasActive = col.classList.contains('is-active');
+        resetActiveTiles();
+        if(!wasActive) col.classList.add('is-active');
+        return;
+      }
+      // otherwise this is a real link — let the browser navigate to cat.link
     });
     indexSection.appendChild(col);
   });
+
+  // tile videos start loading once the grid is within about a screen of view, so they're
+  // already buffering by the time someone actually reaches them (see upgradePreload)
+  if(tileVideos.length){
+    const tilesPreloadObserver = new IntersectionObserver((entries) => {
+      if(!entries.some(e => e.isIntersecting)) return;
+      tilesPreloadObserver.disconnect();
+      tileVideos.forEach(upgradePreload);
+    }, { rootMargin: '0px 0px 100% 0px' });
+    tilesPreloadObserver.observe(indexSection);
+  }
 
   // coming back via Back restores the page as it was left; reset so the next tap previews again
   window.addEventListener('pageshow', (e) => { if(e.persisted) resetActiveTiles(); });
@@ -791,7 +966,12 @@
 
     const rect = timelineSection.getBoundingClientRect();
     const scrollable = timelineSection.offsetHeight - vh;
-    const progress = clamp(-rect.top / scrollable, 0, 1);
+    const scrollProgress = clamp(-rect.top / scrollable, 0, 1);
+    // never pan further than the video has actually drawn in: at normal scroll speed the
+    // pan used to finish well before the video did, showing blank white past that point
+    const dur = timelineVideo.duration;
+    const videoProgress = (isFinite(dur) && dur > 0) ? clamp(timelineVideo.currentTime / dur, 0, 1) : 0;
+    const progress = Math.min(scrollProgress, videoProgress);
 
     const maxTranslate = Math.max(0, timelineTrack.offsetWidth - window.innerWidth);
     timelineTrack.style.transform = 'translateX(' + (-progress * maxTranslate) + 'px)';
@@ -806,14 +986,24 @@
     else timelineVideo.addEventListener('loadedmetadata', seekToEnd, { once:true });
   }
 
+  // starts loading well before the section is reached, so it's ready in time for the
+  // play-once trigger below (see upgradePreload, shared with the tile videos)
+  const timelinePreloadObserver = new IntersectionObserver((entries) => {
+    if(!entries.some(e => e.isIntersecting)) return;
+    timelinePreloadObserver.disconnect();
+    upgradePreload(timelineVideo);
+  }, { rootMargin: '0px 0px 100% 0px' });
+  timelinePreloadObserver.observe(timelineSection);
+
   const revealObserver = new IntersectionObserver((entries) => {
     if(!entries.some(e => e.isIntersecting)) return;
     revealObserver.disconnect();
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ showFinalFrame(); return; }
+    upgradePreload(timelineVideo);
     timelineVideo.defaultPlaybackRate = timelineVideo.playbackRate = 0.75;
     // if autoplay is blocked (e.g. iOS Low Power Mode), show the finished timeline rather than a blank frame
     timelineVideo.play().catch(showFinalFrame);
-  }, { threshold:0.4 });
+  }, { threshold:0 });
   revealObserver.observe(document.querySelector('.timeline-sticky'));
 
   // ---------- skills band: rings fill 0 -> score once the band is in view AND the hero
