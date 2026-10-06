@@ -111,13 +111,34 @@
   }
 
   /* darkens the photo behind the hero text just enough to lift contrast, without
-     flattening the image itself — strongest across the text block, tapering off below it */
+     flattening the image itself — strongest across the text block, tapering off below it.
+     the photo's own file fades to transparent at its edges (an existing soft-edge effect
+     over the page background), so the scrim is masked with that same image/alpha — using
+     the same mask-size/position as the photo's own object-fit/object-position — to keep
+     the darkening confined to the actual photo, never bleeding into the page background. */
   .welcome-text::before{
     content:'';
     position:absolute;
     inset:0;
     background:linear-gradient(to bottom, rgba(0,0,0,.46) 0%, rgba(0,0,0,.64) 20%, rgba(0,0,0,.58) 42%, rgba(0,0,0,.5) 55%, rgba(0,0,0,.22) 70%, rgba(0,0,0,0) 86%);
     pointer-events:none;
+    -webkit-mask-image:url('images/hero-welcome.webp');
+    -webkit-mask-size:cover;
+    -webkit-mask-position:center center;
+    -webkit-mask-repeat:no-repeat;
+    mask-image:url('images/hero-welcome.webp');
+    mask-size:cover;
+    mask-position:center center;
+    mask-repeat:no-repeat;
+  }
+
+  @media (max-width:768px){
+    .welcome-text::before{
+      -webkit-mask-image:url('images/home-hero-mobile.webp');
+      mask-image:url('images/home-hero-mobile.webp');
+      -webkit-mask-position:center 18%;
+      mask-position:center 18%;
+    }
   }
 
   .text-block{
