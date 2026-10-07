@@ -77,8 +77,12 @@
     animation:fadeInImage 3.6s ease-out forwards;
   }
 
+  .hero-mobile{ display:none; }
+
   @media (max-width:768px){
-    .hero-desktop{
+    .hero-desktop{ display:none; }
+    .hero-mobile{
+      display:block;
       object-position:center 18%; /* keep faces/paper-cutouts in frame on tall phone screens */
     }
   }
@@ -110,40 +114,8 @@
     color:#fff;
   }
 
-  /* darkens the photo behind the hero text just enough to lift contrast, without
-     flattening the image itself — strongest across the text block, tapering off below it.
-     the photo's own file fades to transparent at its edges (an existing soft-edge effect
-     over the page background), so the scrim is masked with that same image/alpha — using
-     the same mask-size/position as the photo's own object-fit/object-position — to keep
-     the darkening confined to the actual photo, never bleeding into the page background. */
-  .welcome-text::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:linear-gradient(to bottom, rgba(0,0,0,.46) 0%, rgba(0,0,0,.64) 20%, rgba(0,0,0,.58) 42%, rgba(0,0,0,.5) 55%, rgba(0,0,0,.22) 70%, rgba(0,0,0,0) 86%);
-    pointer-events:none;
-    -webkit-mask-image:url('images/hero-welcome.webp');
-    -webkit-mask-size:cover;
-    -webkit-mask-position:center center;
-    -webkit-mask-repeat:no-repeat;
-    mask-image:url('images/hero-welcome.webp');
-    mask-size:cover;
-    mask-position:center center;
-    mask-repeat:no-repeat;
-  }
-
-  @media (max-width:768px){
-    .welcome-text::before{
-      -webkit-mask-image:url('images/home-hero-mobile.webp');
-      mask-image:url('images/home-hero-mobile.webp');
-      -webkit-mask-position:center 18%;
-      mask-position:center 18%;
-    }
-  }
-
   .text-block{
     position:relative;
-    z-index:1;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -169,7 +141,6 @@
     font-weight:400;
     letter-spacing:.02em;
     white-space:nowrap;
-    text-shadow:0 1px 2px rgba(0,0,0,.85), 0 2px 8px rgba(0,0,0,.65), 0 4px 20px rgba(0,0,0,.45);
   }
 
   .name-line{
@@ -185,7 +156,6 @@
     line-height:1.05;
     letter-spacing:-.01em;
     white-space:nowrap;
-    text-shadow:0 2px 3px rgba(0,0,0,.85), 0 3px 10px rgba(0,0,0,.65), 0 6px 32px rgba(0,0,0,.45);
   }
 
   .tagline-line{
@@ -197,12 +167,9 @@
   }
   .tagline-line span{
     display:block;
-    font-size:clamp(1rem, 2.2vw, 1.5rem);
+    font-size:clamp(1.3rem, 2.5vw, 2.1rem);
     font-weight:400;
-    font-style:italic;
-    letter-spacing:.01em;
-    opacity:.94;
-    text-shadow:0 1px 2px rgba(0,0,0,.85), 0 2px 8px rgba(0,0,0,.65), 0 4px 20px rgba(0,0,0,.45);
+    letter-spacing:.02em;
   }
 
   @keyframes slideUp{
@@ -213,7 +180,7 @@
   @media (max-width:640px){
     .name-line span{ font-size:clamp(2.6rem, 13vw, 4.6rem); white-space:normal; }
     .eyebrow-line span{ font-size:1.15rem; white-space:normal; }
-    .tagline-line span{ font-size:.92rem; white-space:normal; }
+    .tagline-line span{ font-size:1.15rem; white-space:normal; }
     .text-block{ padding:24px 28px; }
   }
 
@@ -378,7 +345,42 @@
        photo badly, so the band sits directly under the full-height photo instead */
     .welcome{ height:auto; overflow:visible; }
     .welcome-frame{ flex:none; height:100vh; height:100dvh; }
-    .skills-list{ max-width:340px; gap:22px 7vw; }
+
+    /* the photo's own fade/vignette tapers to a flat wash well before the frame's bottom
+       edge (see .welcome-fade, ~38% of the frame height); pull the band up so it starts
+       right where the real photo content ends instead of leaving a blank strip under the
+       already-faded-out tail. Measured across iPhone 13 / Galaxy S8 / iPhone SE the flat
+       tail is a consistent ~7% of the frame height, so this is viewport-height relative. */
+    .skills-band{
+      margin-top:-7vh;
+      margin-top:-7dvh;
+    }
+    /* short soft blend so the band's top edge doesn't read as a hard cut over the fade */
+    .skills-band::before{
+      content:'';
+      position:absolute;
+      left:0; right:0;
+      top:-28px;
+      height:28px;
+      background:linear-gradient(to bottom, rgba(239,239,237,0), #efefed);
+      pointer-events:none;
+    }
+
+    .skills-list{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      max-width:420px;
+      gap:16px 0;
+    }
+    .skill{
+      flex:0 0 20%;
+      max-width:84px;
+      padding:0 4px;
+    }
+    .skill-ring{ width:clamp(34px, 11vw, 46px); height:clamp(34px, 11vw, 46px); }
+    .skill-name{ font-size:clamp(.52rem, 2.1vw, .62rem); overflow-wrap:break-word; }
+    .skill-score{ font-size:clamp(.46rem, 1.7vw, .54rem); }
   }
 
   /* ---------- MAIN INDEX ---------- */
@@ -599,10 +601,8 @@
   <main>
   <section class="welcome" id="welcome">
     <div class="welcome-frame">
-      <picture>
-        <source media="(max-width:768px)" srcset="images/home-hero-mobile.webp">
-        <img class="hero-desktop" src="images/hero-welcome.webp" alt="Kshitij Shetty working with a community school on a participatory design project" fetchpriority="high">
-      </picture>
+      <img class="hero-desktop" src="images/hero-welcome.webp" alt="Kshitij Shetty working with a community school on a participatory design project" fetchpriority="high">
+      <img class="hero-mobile" src="images/hero-mobile.jpg" alt="Kshitij Shetty working with a community school on a participatory design project" fetchpriority="high">
       <div class="welcome-fade"></div>
       <div class="welcome-text">
         <div class="text-block">
